@@ -1,0 +1,134 @@
+{
+  "version": "6.7.14.0",
+  "releasedAt": "2026-09-09",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.14.0"
+    },
+    {
+      "name": "RELEASE_INFO-6.7.md (Abschnitt 6.7.14.0)",
+      "url": "https://github.com/shopware/shopware/blob/v6.7.14.0/RELEASE_INFO-6.7.md#67140",
+      "note": "Vertiefte Release-Info pro Release; Abschnitt als Original unter release-info/ archiviert."
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "releaseInfo": {
+    "file": "release-info/2026-09-09-v6.7.14.0.md",
+    "bereiche": [
+      "Features",
+      "API",
+      "Core (großer MCP-/ACL-Block)",
+      "Administration",
+      "Storefront",
+      "App System",
+      "Hosting & Configuration"
+    ],
+    "einzelnderungen": 85
+  },
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "MCP-Server ohne Feature-Flag nutzbar",
+        "summary": "Der experimentelle MCP-Server (6.7.11.0) benötigt MCP_SERVER nicht mehr; Toolsets pro Session wählbar, Discovery on-demand, ACL-Validierung bei Entity-Tools."
+      },
+      {
+        "title": "Admin-API: durchgängige ACL-Pflichten",
+        "summary": "Zahlreiche Admin-Action-Endpunkte (Number range, SEO, Media, Template-Rendering, Queue, Increment, Order-Recalculation u.a.) verlangen jetzt ACL-Privilegien."
+      }
+    ],
+    "features": [
+      {
+        "title": "Neuer Administration-Menüpunkt 'Automation'",
+        "summary": "Rule Builder und Flow Builder sind über einen eigenen Top-Level-Menüeintrag erreichbar."
+      },
+      {
+        "title": "App-Script-Hook cookie-group-collect",
+        "summary": "Apps können Cookie-Consent-Gruppen und -Einträge per Skript modifizieren oder entfernen."
+      },
+      {
+        "title": "SEO-URLs für Headless-Sales-Channels",
+        "summary": "Headless-Kanäle erhalten SEO-URL-Generierung; Store-API-Snippet-Endpunkt experimentell."
+      }
+    ],
+    "core": [
+      "Vue Single File Components für Admin-Extensions; SFC-Migration-Codemod emittiert native Setup-Components.",
+      "E-Rechnung: GARAN-Gewährleistungsetikett und EU-Gesetzgebungshinweis; korrekte Preisbasis-Menge in E-Invoice-Positionen.",
+      "Keyset-Pagination für Produktexport und SalesChannelRepositoryIterator; getTotal() deprecated.",
+      "Ganz-Phrasen-Treffer ranken bei Produktsuche höher; Admin-Suche fällt ohne Elasticsearch-Indexer auf DB zurück.",
+      "Weniger DB-Deadlocks bei Kategorie-/SEO-URL-Indexierung; MySQL-8.4-Fremdschlüssel-Probleme in Produktmigrationen gefixt.",
+      "MCP-Block: Toolsets pro Session, On-Demand-Discovery, Allowlists vor Pagination, debug:mcp listet Store-API-Capabilities.",
+      "Clear-Site-Data-Header optional bei Logout; lokale Übersetzungsdateien mit optionalen Auto-Updates."
+    ]
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.14.0 für Entwickler",
+      "punkte": [
+        "Größtes Release der Nachtragsserie: 85 dokumentierte Einzeländerungen - ACL-Härtung, MCP-Reifung, E-Rechnung, Keyset-Pagination.",
+        "MCP: Server ohne MCP_SERVER-Flag; Toolsets pro Session aktivierbar, On-Demand-Tool-Discovery, Entity-Tools validieren Assoziations-Read-Privilegien, Allowlists vor Pagination, Clients werden bei App-Capability-Änderungen benachrichtigt; debug:mcp zeigt Store-API-Capabilities.",
+        "Admin-API-ACL: Number-range-, SEO-, Media-, Template-Rendering-, Queue-, Increment-, Order-Recalculation/Conversion- und weitere Action-Endpunkte verlangen Privilegien; sw-expect-packages wird auf Endpunkten ohne Auth zurückgewiesen - Integrations- und CI-Zugriffe prüfen!",
+        "Store API: experimenteller Snippet-Endpunkt; Cart-Totals als separates CartPrice-Schema-Dokument; keine Versandarten ohne nutzbaren Preis; Sprachlisten-Validierung gegen Default-Sprache; Newsletter-Routen behalten StoreApiResponse.",
+        "Criteria: resetFields() und resetExcludedFields() neu; Cross-Selling über dynamische Produktgruppe schließt die ganze Variantenfamilie aus.",
+        "E-Rechnung/Dokumente: GARAN-Label und EU-Gesetzgebungshinweis, korrekte Preisbasis-Menge; DocumentV1/V2-Datei-Kompatibilität; VAT-Anzeige hinter 6.8-Feature-Flag.",
+        "Produktexport: --force regeneriert scheduler-verwaltete Exporte; Keyset-Pagination (getTotal() deprecated); Body-Media-URLs RFC 3986 encodiert; Scheduling vom Cache-Timestamp entkoppelt.",
+        "Administration: Vue SFCs für Extensions (Codemod emittiert Setup-Components), System-Config-Forms mit Validierungsfehlern und Sales-Channel-Scope, Meteor-Snackbar global nutzbar, Media-Quick-Info-Extension-Point.",
+        "Storefront: reCAPTCHA-Fehler zeigen keine Fehlerseite mehr bei Non-AJAX-Formularen; theme:create --full und granulare Scaffold-Flags; PluginManager.override() für async Plugins; webpack-Chunk-Loading-Global pro Bundle.",
+        "App System: Recovery ambig fehlgeschlagener Registrierungen; Custom Fields auf Media-Foldern; Media-Folder-Modal publishiert Datasets.",
+        "Hosting (aus RELEASE_INFO): SERVICE_REGISTRY_URL nur auf Shopware-Domains in Production; optionaler Clear-Site-Data-Header bei Logout; Thumbnail-Force-Regeneration/-Deletion via --force.",
+        "Deprecations (aus RELEASE_INFO): XML-Konfiguration (deprecated), getTotal() beim Produktexport, EntitySearchResult behält Entity-Namen (BC-Attribut)."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.14.0 für Projektmanager",
+      "punkte": [
+        "Umfangreiches Release (85 Änderungen) - Release-Notes im Team verteilen; Schwerpunkte ACL-Härtung, KI/MCP-Ausbau, E-Rechnung.",
+        "Sicherheit/Compliance: Durchgängige ACL-Pflichten auf Admin-Action-Endpunkten und E-Rechnungsverbesserungen (GARAN, EU-Hinweis) - für Rechnungsprozesse (E-Rechnungspflicht) relevant.",
+        "KI-Roadmap: MCP ist jetzt produktionsnäher (kein Flag, Toolsets) - Pilotprojekte mit AI-Clients können konkreter geplant werden.",
+        "Aufwand: moderat; Prüfung eigener Integrations-Zugriffe auf Admin-Action-Endpunkte (ACL) und Export-Tools (Keyset-Pagination) empfohlen.",
+        "Test-Empfehlung: Bestellvorgang (Versandarten ohne Preis), E-Rechnungs-Generierung, Theme-/Scaffold-Workflows, Logout (Clear-Site-Data opt-in)."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.14.0 für den Vertrieb",
+      "punkte": [
+        "KI-Thema verkaufen: MCP-Server reif für Pilotprojekte - Kunden mit KI-Ambitionen jetzt konkret ansprechen.",
+        "E-Rechnungspflicht: GARAN-Label und EU-Gesetzgebungshinweis - Argument für Kunden mit Rechnungsautomatisierung.",
+        "Große Shops skaliert: Keyset-Pagination und Deadlock-Reduktion - Performance-Versprechen bei großen Katalogen.",
+        "Sicherheitsargument: flächendeckende ACL-Absicherung der Admin-API.",
+        "Effizienz: Vue SFCs senken Aufwand bei Admin-Extensions - schnellere Individualentwicklung."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.14.0 veröffentlicht* (09.09.2026)",
+      "text": "*Shopware 6.7.14.0 ist da* :tada: - größtes 6.7er-Release seit Monaten (85 Änderungen)\n\n:sparkles: Highlights:\n• MCP-Server ohne Feature-Flag, Toolsets pro Session\n• Admin-API flächendeckend ACL-gesichert\n• Menü 'Automation' (Rule/Flow Builder)\n• E-Rechnung: GARAN + EU-Hinweis\n• Vue SFCs für Admin-Extensions, Keyset-Pagination\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.14.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.14.0/RELEASE_INFO-6.7.md#67140|Release Info>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.14.0 veröffentlicht",
+      "text": "**Shopware 6.7.14.0 veröffentlicht** (09.09.2026) - 85 dokumentierte Änderungen\n\n**KI/MCP**\n- MCP-Server ohne Feature-Flag, Toolsets pro Session, On-Demand-Discovery\n\n**Sicherheit**\n- Admin-Action-Endpunkte flächendeckend ACL-pflichtig\n- Entity-Tools validieren Read-Privilegien\n\n**E-Rechnung**\n- GARAN-Gewährleistungsetikett, EU-Gesetzgebungshinweis, korrekte Preisbasis-Menge\n\n**Entwicklung**\n- Vue Single File Components, SFC-Codemod, Criteria::resetFields()\n- Keyset-Pagination für Produktexporte\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.14.0\nRelease Info: https://github.com/shopware/shopware/blob/v6.7.14.0/RELEASE_INFO-6.7.md#67140"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.14.0: MCP-Reifung, ACL-Härtung und E-Rechnung",
+      "text": "# Shopware 6.7.14.0: MCP-Reifung, ACL-Härtung und E-Rechnung\n\nMit 85 dokumentierten Einzeländerungen ist 6.7.14.0 das umfangreichste Release der jüngeren 6.7er-Geschichte. Drei Themen prägen es.\n\n## MCP wird erwachsen\n\nDer in 6.7.11.0 experimentell eingeführte MCP-Server benötigt kein Feature-Flag mehr. Tools lassen sich pro Session über Toolsets aktivieren, on-demand entdecken und über Allowlists fein steuern; Entity-Tools prüfen Assoziations-Leserechte. Für Agenturen heißt das: KI-Integrationen sind jetzt planbare Projekte.\n\n## Admin-API unter ACL-Verschluss\n\nNumber-Range-, SEO-, Media-, Queue- und zahlreiche weitere Action-Endpunkte verlangen künftig ACL-Privilegien. Integrationszugriffe, die bisher auf 'offene' Endpunkte setzten, müssen geprüft werden.\n\n## E-Rechnung und Rechtstexte\n\nRechnungspositionen geben die korrekte Preisbasis-Menge an, und Shopware bringt GARAN-Gewährleistungsetikett sowie den EU-Gesetzgebungshinweis mit - relevant für die E-Rechnungspflicht.\n\n## Für Entwickler\n\nVue Single File Components für Admin-Extensions inklusive Migrations-Codemod, Criteria::resetFields()/resetExcludedFields(), Keyset-Pagination beim Produktexport, Deadlock-Reduktion bei Kategorie-Indexierung und MySQL-8.4-Fixes.\n\n## Fazit\n\nStrategisch wichtiges Release: KI-Anbindung, Security und E-Rechnung in einem Update.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.14.0*\n*Release Info: https://github.com/shopware/shopware/blob/v6.7.14.0/RELEASE_INFO-6.7.md#67140*"
+    }
+  }
+}
