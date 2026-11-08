@@ -1,0 +1,119 @@
+{
+  "version": "6.7.13.0",
+  "releasedAt": "2026-08-05",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.13.0"
+    },
+    {
+      "name": "RELEASE_INFO-6.7.md (Abschnitt 6.7.13.0)",
+      "url": "https://github.com/shopware/shopware/blob/v6.7.13.0/RELEASE_INFO-6.7.md#67130",
+      "note": "Vertiefte Release-Info pro Release; Abschnitt als Original unter release-info/ archiviert."
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "releaseInfo": {
+    "file": "release-info/2026-08-05-v6.7.13.0.md",
+    "bereiche": [
+      "Critical Fixes",
+      "Core",
+      "Storefront",
+      "API",
+      "App System",
+      "Hosting & Configuration",
+      "Administration"
+    ],
+    "einzelnderungen": 55
+  },
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Store-API-Requests starten keine PHP-Sessions mehr",
+        "summary": "Store-API bleibt stateless; bisher konnten Subscriber Sessions initialisieren (Storage-Wachstum, Session-Locks). Storefront-Handling inkl. Customer-Imitation unverändert."
+      }
+    ],
+    "features": [
+      {
+        "title": "Deklarative Custom Fields via Resources/config/custom-fields.xml",
+        "summary": "Plugins definieren Custom Fields inkl. searchable-Markierung deklarativ statt über Runtime-Code; Migration-Pfad dokumentiert."
+      }
+    ],
+    "core": [
+      "descriptionTeaser-Backfill läuft einmalig als Post-Update-Indexer statt bei jedem Media-Update.",
+      "Sales-Channel-Geschäftszeitzone; schnellere Kategorie-Anlage/-Bearbeitung; Criteria::excludeFields() für schlanke Reads.",
+      "ZUGFeRD-Korrekturdokumente leiten Versandhandling aus Dokument-Metadaten ab; progressive JPEG-Thumbnails mit Per-Thumbnail-Postprocessing-Event.",
+      "Webhooks werden nach Secret-Rotation mit dem aktuellen App-Secret signiert; Payment-Wechsel-nach-Checkout wird beim Nachzahlen erzwungen.",
+      "Deprecations: BeforeCacheControlEvent/Admin-Cache-Control-Marker, EntitySearchResult-Subklassen, UnmappedFieldException (DBAL), inline <custom-fields> in manifest.xml, maintenanceIpWhitelist-Wording, AbstractDomainLoader::load()."
+    ]
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.13.0 für Entwickler",
+      "punkte": [
+        "Critical Fix: Store-API-Requests starten keine PHP-Sessions mehr - Subscriber, die Sessions in Store-API-Requests nutzen, müssen das jetzt explizit tun.",
+        "Custom Fields deklarativ: Resources/config/custom-fields.xml (inkl. searchable); die 6.8er-Doku beschreibt die Migration von Runtime-Custom-Fields.",
+        "Neues Criteria::excludeFields() reduziert Entity-Reads; OneToMany-Limit respektiert Sortierung über Joins; Not-Null-Translationspalten akzeptieren falsy Defaults.",
+        "Scheduled-Task-Ausführung in ScheduledTaskExecutor ausgelagert; Shopware-Services und Übersetzungen werden automatisch per Scheduled Task aktualisiert.",
+        "Store API: OpenAPI JSON-Schema-Dateien haben Vorrang vor generierten Entity-Schemas; Purchase-Prices entfernt aus Order-Line-Item-Payloads; ACL-Expansions-Verhalten von DAL-Write-Listenern korrigiert.",
+        "Admin API: Übersetzungs-Downloads und Media-Downloads steuerbar (Manage translation downloads / Download media files via the Admin API).",
+        "Storefront: Link-Kategorien bekommen wieder SEO-URLs; paginierte URLs haben eindeutige Canonical-URLs; robots.txt erlaubt Produkt-Feed-Tracking-URLs; Formular-Validierung via Snippets steuerbar.",
+        "Rule Builder (aus RELEASE_INFO): All-/Mindestens-ein-Toggle config-basiert; Line-Item-Einkaufspreis mit Netto/Brutto-Typfeld; dynamische Produktgruppen entgruppiert matchbar.",
+        "App System (aus RELEASE_INFO): Tax-Provider-Priorität bleibt über App-Updates erhalten.",
+        "Hosting (aus RELEASE_INFO): GENERATE_SOURCEMAPS-Umgebungsvariable für Production-Builds.",
+        "Deprecations (aus RELEASE_INFO): BeforeCacheControlEvent + Admin-Cache-Control-Marker, EntitySearchResult-Subklassen, UnmappedFieldException (DBAL-Sub-Namespace), inline <custom-fields> im App-Manifest, maintenanceIpWhitelist-Wording, AbstractDomainLoader::load() zugunsten loadDomains(), Address-Manager-Typ-Variable.",
+        "CLI: plugin:create mit --no-scaffold; Mail-Template-Simulation mit Formulardaten."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.13.0 für Projektmanager",
+      "punkte": [
+        "55 dokumentierte Einzeländerungen; Schwerpunkt Performance und Konsistenz (Sessions, Indexer, Canonical-URLs).",
+        "Perfomanz-Gewinn: Store-API ohne Session-Locks, einmaliger descriptionTeaser-Backfill, schnellere Kategorie-Bearbeitung, reduzierte Entity-Reads - spürbar bei Headless- und großen Katalogprojekten.",
+        "SEO-Relevanz: Canonical-URLs bei Pagination, SEO-URLs für Link-Kategorien - nach Update SEO-Checks empfehlen.",
+        "Update-Aufwand: moderat; Deprecations (EntitySearchResult, App-Manifest-Custom-Fields) in eigenen Plugins prüfen.",
+        "Test-Empfehlung: Checkout mit Zahlungswechsel/Nachzahlung, PDF-Dokumente (ZUGFeRD-Korrektur), Formulare im Storefront."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.13.0 für den Vertrieb",
+      "punkte": [
+        "Performance-Argument: stateless Store-API und schlankere Reads - gerade für Headless- und B2B-Projekte mit hohem Traffic verkaufbar.",
+        "SEO-Plus: eindeutige Canonical-URLs und wieder funktionierende Link-Kategorie-URLs.",
+        "Effizienz bei Integrationsprojekten: Custom Fields deklarativ, Admin-API-Media-/Übersetzungs-Downloads - weniger Individualcode.",
+        "Compliance-Argument: ZUGFeRD-Korrekturdokumente korrekt - relevant für Rechnungsprozesse (xRechnung/E-Rechnung-Pflicht)."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.13.0 veröffentlicht* (05.08.2026)",
+      "text": "*Shopware 6.7.13.0 ist da* :tada:\n\n:kritisch: Critical Fix: Store-API-Requests starten keine PHP-Sessions mehr\n\n:sparkles: Highlights:\n• Custom Fields deklarativ (custom-fields.xml)\n• Criteria::excludeFields(), schnellere Kategorien\n• Canonical-URLs bei Pagination, SEO-URLs für Link-Kategorien\n• ZUGFeRD-Korrekturdokumente korrekt\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.13.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.13.0/RELEASE_INFO-6.7.md#67130|Release Info>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.13.0 veröffentlicht",
+      "text": "**Shopware 6.7.13.0 veröffentlicht** (05.08.2026)\n\n**Stabilität**\n- Store-API-Requests starten keine PHP-Sessions mehr\n- descriptionTeaser-Backfill läuft einmalig als Post-Update-Indexer\n\n**Features**\n- Custom Fields deklarativ via custom-fields.xml (inkl. searchable)\n- Criteria::excludeFields() für schlanke Entity-Reads\n- Sales-Channel-Geschäftszeitzone\n\n**SEO**\n- Eindeutige Canonical-URLs bei Pagination\n- Link-Kategorien bekommen SEO-URLs\n\n**Deprecations**\n- EntitySearchResult-Subklassen, inline custom-fields im App-Manifest u.a.\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.13.0\nRelease Info: https://github.com/shopware/shopware/blob/v6.7.13.0/RELEASE_INFO-6.7.md#67130"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.13.0: Performance, SEO und deklarative Custom Fields",
+      "text": "# Shopware 6.7.13.0: Performance, SEO und deklarative Custom Fields\n\nMit 55 dokumentierten Einzeländerungen ist 6.7.13.0 eines der umfangreicheren Wartungs-Releases der 6.7er-Linie. Drei Themen stechen hervor.\n\n## Statelesse Store-API\n\nBisher konnten Store-API-Requests ungewollt PHP-Sessions starten - mit wachsendem Session-Storage und Session-Locks als Folge. Ab jetzt bleibt die Store-API stateless, sofern kein Code explizit eine Session startet. Für Headless-Projekte ein klarer Performance-Gewinn.\n\n## SEO-Details\n\nPaginierte Storefront-URLs erhalten eindeutige Canonical-URLs, und Link-Kategorien bekommen wieder SEO-URLs, die auf ihr Ziel weiterleiten. Nach dem Update lohnt sich ein SEO-Check.\n\n## Deklarative Custom Fields\n\nPlugins können Custom Fields künftig über Resources/config/custom-fields.xml definieren und sie auch als durchsuchbar markieren - weniger Boilerplate, klarere Upgrade-Pfade.\n\n## Weitere Highlights\n\nCriteria::excludeFields() reduziert Datenbank-Reads, der descriptionTeaser-Backfill läuft nur einmal als Post-Update-Indexer, ZUGFeRD-Korrekturdokumente leiten das Versandhandling korrekt aus Metadaten ab, und die Scheduled-Task-Ausführung wurde in einen eigenen Executor ausgelagert.\n\n## Fazit\n\nEin empfehlenswertes Update mit Fokus auf Performance und SEO-Konsistenz.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.13.0*\n*Release Info: https://github.com/shopware/shopware/blob/v6.7.13.0/RELEASE_INFO-6.7.md#67130*"
+    }
+  }
+}
