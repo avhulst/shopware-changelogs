@@ -27,14 +27,14 @@ Anleitung für Agent-Läufe (z. B. über den geplanten Tages-Task) und manuelle 
 
 ## 3. Verteilen
 
-- **Slack**: `channels.slack.text` in den vereinbarten Kanal posten (Slack-Connector).
-- **Teams**: `channels.teams.text` in den vereinbarten Kanal posten (Teams-Connector).
+- **Slack** (Connector verbunden, seit 08.11.2026): Slack-Text aus `kanaele/slack/YYYY-MM-DD-vX.Y.Z.W.md` bzw. `channels.slack.text` mit `slack.send_message` in den Channel **#shopware** posten (channel_id `C06T2M66TK6`, Workspace a-dev-team). Mrkdwn-Links `<URL|Text>` vorher ins Markdown-Format `[Text](URL)` umwandeln. Am Ende eine Zeile mit Link zur Changelog-App `https://avhulst.github.io/shopware-changelogs/` anhängen.
+- **Teams**: nur wenn der Connector verbunden ist, `channels.teams.text` posten.
 - **Blog**: `channels.blog.text` als Entwurf an Andreas übergeben, nicht ungefragt veröffentlichen.
-- Sind die Connectoren nicht verbunden: nur Repo-Update, in der Antwort darauf hinweisen.
+- Ist ein Connector nicht verbunden: Repo-Update trotzdem durchführen und in der Antwort darauf hinweisen.
 
 ## 4. React-App
 
-Kein Datenpflege-Aufwand: Die hostbare App in `app/index.html` lädt `data/index.json` und alle Einträge live per GitHub-API. Ein neuer Eintrag im Repo erscheint automatisch in der App. Nur bei Änderungen am Datenmodell oder UI ist `app/index.html` anzupassen.
+Kein Datenpflege-Aufwand: Die App wird bei Push auf `app/vite/**` automatisch von GitHub Actions gebaut und auf GitHub Pages deployt (`.github/workflows/deploy-app.yml`, URL: https://avhulst.github.io/shopware-changelogs/). Die App lädt `data/index.json` und alle Einträge live per GitHub-API, neue Einträge erscheinen also auch ohne Rebuild automatisch. Nur bei Datenmodell- oder UI-Änderungen ist `app/vite/src/App.jsx` anzupassen (der Deploy folgt dann automatisch). Die Single-File-Variante `app/index.html` (kein Babel, direkt öffnen) parallel pflegen, wenn `app/index.html` selbst geändert wird.
 
 ## Ton & Sprache
 
