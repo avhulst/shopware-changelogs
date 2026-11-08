@@ -1,4 +1,5 @@
 name: Build & Deploy Changelog-App (GitHub Pages)
+# Deploy manuell neu angestoßen am 2026-11-08
 
 on:
   push:
