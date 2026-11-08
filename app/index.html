@@ -174,7 +174,7 @@ function App() {
         <React.Fragment>
           <div className="card">
             <h2>Shopware {entry.version}</h2>
-            <span className="badge">{entry.type}</span>
+            <span className={"badge" + (entry.type === "security" ? " security" : "")}>{entry.type}</span>
             <div className="meta">veröffentlicht {entry.releasedAt} · geprüft {entry.checkedAt}</div>
             <div className="kurz">{entry.kurztitel || (entry.sources && entry.sources[0] && "")}</div>
             {(entry.sources || []).map((s, i) => (
