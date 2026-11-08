@@ -1,0 +1,120 @@
+{
+  "version": "6.7.13.1",
+  "releasedAt": "2026-08-25",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.13.1"
+    },
+    {
+      "name": "RELEASE_INFO-6.7.md (Abschnitt 6.7.13.1)",
+      "url": "https://github.com/shopware/shopware/blob/v6.7.13.1/RELEASE_INFO-6.7.md#67131",
+      "note": "Vertiefte Release-Info pro Release; Abschnitt als Original unter release-info/ archiviert."
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "releaseInfo": {
+    "file": "release-info/2026-08-25-v6.7.13.1.md",
+    "bereiche": [
+      "Security Fixes",
+      "Critical Fixes"
+    ],
+    "einzelnderungen": 13
+  },
+  "type": "security",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Twig: find/has some/has every akzeptieren keine beliebigen PHP-String-Callables mehr",
+        "summary": "Nur Allowlist-Funktionen (shopware.twig.allowed_php_functions) sind erlaubt; Arrow Functions (v => ...) bleiben nutzbar."
+      },
+      {
+        "title": "Admin-Passwort-Wiederherstellung nur über vertrauenswürdige Herkunft",
+        "summary": "Recovery-Links nutzen APP_URL, wenn keine Trusted Hosts konfiguriert sind - Schutz vor Host-Header-Angriffen."
+      },
+      {
+        "title": "Webhook-Ziel-Validierung gehärtet",
+        "summary": "Standardmäßig nur HTTPS und öffentliche IPs; DNS-Pinning reduziert Rebinding-Risiko."
+      },
+      {
+        "title": "ACL-Rollen und geschützte Admin-Felder nur über autorisierte Schreibpfade",
+        "summary": "Generische Admin-API-Writes können keine acl_role-Entities mehr anlegen/ändern."
+      },
+      {
+        "title": "Elasticsearch: Reindex bei geänderten Analysis-Settings",
+        "summary": "Fehlende Analyzer/Normalizer im Live-Index lösen Reindex in neuen Index aus statt fehlzuschlagen."
+      }
+    ],
+    "features": [],
+    "core": [
+      "Media: Datei-Extensions und Import-URL-Checks (private/reservierte Adressen blockiert) strikter validiert.",
+      "Store API: Aggregation-Namen ohne Steuerzeichen; verschachtelte productReviews folgen denselben Sichtbarkeitsregeln; übergroße Criteria werden mit 400 SYSTEM__CRITERIA_TOO_MANY_NESTED_CRITERIA abgelehnt.",
+      "Custom Entity-/Feldnamen in entities.xml werden vor Schema-Bau validiert.",
+      "Gast-Dokumenten-Downloads unterliegen dem Rate-Limiter; Dokument-Rendering unterstützt dekorierte Twig-Environments."
+    ]
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.13.1 für Entwickler",
+      "punkte": [
+        "Security-Release mit 11 Security- und 2 Critical Fixes - zeitnah einspielen.",
+        "Twig: String-Callables in find/has some/has every werden nur noch aus shopware.twig.allowed_php_functions erlaubt; Templates mit Arrow Functions (v => ...) sind nicht betroffen.",
+        "Admin-Passwort-Recovery: Links basieren auf APP_URL, wenn keine Trusted Hosts gesetzt sind - APP_URL korrekt konfigurieren (öffentliche HTTP(S)-URL).",
+        "Admin-API: acl_role-Entities nicht mehr generisch schreibbar; admin-Felder von Usern/Integrationen nur über autorisierte Controllers; updateAdmin() ist deprecated (6.8 entfernt) - stattdessen integration-Repository nutzen.",
+        "Webhooks: Ziel-Validierung vor jedem Request/Redirect; HTTPS und öffentliche IPs Pflicht; Freigaben über shopware.app_system.allow_unencrypted_traffic / allowed_private_ip_addresses.",
+        "Store API: Aggregation-Namen ohne Steuerzeichen; verschachtelte productReviews wenden dieselben Sichtbarkeitsregeln an (kann weniger Reviews liefern); Criteria > 99 Nodes werden abgelehnt (SYSTEM__CRITERIA_TOO_MANY_NESTED_CRITERIA, HTTP 400).",
+        "Media: fileExtension-Writes gegen Extension-Allowlist validiert (MEDIA_ILLEGAL_FILE_EXTENSION); URL-Import prüft alle aufgelösten Adressen; private/reservierte Adressen nur mit enable_url_validation=false.",
+        "entities.xml: Entity-/Feldnamen (Tabellen-/Spaltennamen) werden bei Installation/Update validiert (Buchstaben, Ziffern, Unterstrich, $).",
+        "Gast-Dokumenten-Downloads (Deep-Link-Code) unterliegen dem Guest-Login-Rate-Limiter.",
+        "Elasticsearch: Mapping-Updates mit fehlenden Analyzern triggern Reindex statt Fehler; Dokument-Renderer type-hinted Twig\\Environment (Dekoratoren supported)."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.13.1 für Projektmanager",
+      "punkte": [
+        "Sicherheits-Release - prioritär behandeln; 11 Security Fixes inkl. Twig-Code-Injection-Schutz, Host-Header-Schutz und Webhook-Härtung.",
+        "Operations-Prüfung: APP_URL korrekt gesetzt? Trusted Hosts konfiguriert? Webhook-Ziele öffentlich per HTTPS erreichbar?",
+        "Nach dem Update: Integrations-/App-Teams informieren, falls Webhooks ins interne Netz oder per HTTP laufen (Konfig-Freigaben nötig).",
+        "Aufwand gering; Verhaltenstests für Store-API-Integrations mit sehr großen Criteria (jetzt 400) empfohlen."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.13.1 für den Vertrieb",
+      "punkte": [
+        "Aktives Sicherheitsmanagement: Release härten Twig-Templates, Passwort-Recovery, Webhooks und Admin-API - starkes Argument für Wartungsverträge.",
+        "Compliance/DSGVO-Gespräch: gehärtete Media-Importe und Rate-Limits bei Gast-Zugriffen.",
+        "Gesprächsanlass für Kunden auf älteren 6.7.x-Ständen: Security-Standing durch Update sichern."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.13.1 veröffentlicht* (25.08.2026) :lock:",
+      "text": ":lock: *Shopware 6.7.13.1* - Security-Release, zeitnah einspielen!\n\n• Twig: keine String-Callables mehr in find/has some/has every\n• Admin-Passwort-Recovery über APP_URL (Host-Header-Schutz)\n• Webhook-Ziele: HTTPS + öffentliche IPs Pflicht\n• ACL-Rollen nicht mehr generisch schreibbar\n• Elasticsearch-Reindex bei Analyzer-Änderungen\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.13.1|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.13.1/RELEASE_INFO-6.7.md#67131|Release Info>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.13.1 veröffentlicht (Security)",
+      "text": "**Shopware 6.7.13.1 veröffentlicht** (25.08.2026) - Security-Release\n\n**Security Fixes**\n- Twig: String-Callables in find/has some/has every nur noch per Allowlist\n- Admin-Passwort-Recovery-Links über APP_URL\n- ACL-Rollen/admin-Felder nur über autorisierte Pfade\n- Webhook-Ziel-Validierung (HTTPS, öffentliche IPs, DNS-Pinning)\n- Media-Extensions und Import-URLs strikter validiert\n\n**Critical**\n- Elasticsearch: Reindex bei geänderten Analysis-Settings\n- Dokument-Rendering mit dekorierten Twig-Environments\n\n**Betrieb prüfen**\n- APP_URL, Trusted Hosts, Webhook-Ziele im internen Netz\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.13.1\nRelease Info: https://github.com/shopware/shopware/blob/v6.7.13.1/RELEASE_INFO-6.7.md#67131"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.13.1: Sicherheits-Release mit elf Fixes",
+      "text": "# Shopware 6.7.13.1: Sicherheits-Release mit elf Fixes\n\nEnde August hat Shopware ein reines Sicherheits-Release nachgeschoben. Es härten mehrere Angriffsflächen gleichzeitig.\n\n## Template-Injection geschlossen\n\nTwig-Templates konnten über die Filter find und die Operatoren has some / has every beliebige PHP-Funktionen als String-Callables aufrufen. Das ist jetzt auf eine Allowlist begrenzt - analog zu map, filter, reduce und sort.\n\n## Identität und Admin-API\n\nPasswort-Wiederherstellungs-Links in der Administration basieren künftig auf APP_URL statt dem Request-Host - Schutz vor Host-Header-Angriffen. Gleichzeitig können ACL-Rollen und geschützte Admin-Felder nicht mehr über generische API-Writes manipuliert werden.\n\n## Webhooks und Media\n\nWebhook-Ziele müssen per Standard HTTPS verwenden und öffentliche IP-Adressen auflösen; DNS-Pinning senkt das Rebinding-Risiko. Media-Dateien und Import-URLs werden strikter validiert.\n\n## Empfehlung\n\n6.7.13.1 ist ein Muss-Update für alle 6.7.13.x-Ziele. Operations-Teams sollten APP_URL, Trusted-Hosts-Konfiguration und interne Webhook-Ziele prüfen.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.13.1*\n*Release Info: https://github.com/shopware/shopware/blob/v6.7.13.1/RELEASE_INFO-6.7.md#67131*"
+    }
+  }
+}
