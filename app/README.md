@@ -27,13 +27,13 @@ Das `dist/`-Verzeichnis ist komplett statisch (React wird mitgebündelt, kein CD
 
 Hinweis: ES-Module funktionieren nicht via `file://` — die gebaute Vite-Variante läuft nur über echtes Hosting (http/https). Für „einfach öffnen“ Variante A nehmen.
 
-## GitHub-Token (weil das Repo privat ist)
+## Datenabruf & Rate-Limits
 
-Die App ruft `https://api.github.com/repos/avhulst/shopware-changelogs/contents/...` ab. Bei privatem Repo braucht der Browser einen **fine-grained GitHub-Token** mit reinem Leserecht (Contents: Read-only) auf dieses Repo:
+Die App lädt `data/index.json` und alle Einträge über `https://raw.githubusercontent.com/avhulst/shopware-changelogs/main/...` (GitHubs CDN). Seit das Repo öffentlich ist, braucht es **keinen GitHub-Token mehr**.
 
-- Token-Eingabefeld erscheint in der App automatisch, wenn der Abruf mit 404 fehlschlägt.
-- Alternativ: Token einmalig per URL übergeben: `index.html?token=DEIN_TOKEN` (wird dann in `localStorage` als `ghToken` gehalten) oder direkt in den Browser-DevTools setzen: `localStorage.setItem("ghToken","…")`.
-- Der Token verlässt den Browser nicht — er wird nur für die GitHub-API-Anfragen genutzt.
+Wichtig: Bewusst wird nicht die GitHub-Contents-API (`api.github.com`) verwendet. Diese erlaubt ohne Token nur 60 Anfragen pro Stunde und IP — bei 14 Dateien pro App-Laden war das Limit nach wenigen Reloads erschöpft (Fehlerbild: `GitHub API 403`). `raw.githubusercontent.com` hat CORS freigegeben (`access-control-allow-origin: *`) und dieses harte Limit nicht; zusätzlich cached es Dateien kurz (`cache-control: max-age=300`).
+
+Würde das Repo wieder privat, funktioniert `raw.githubusercontent.com` nicht mehr — dann auf die Contents-API mit Token umstellen (siehe Git-Historik dieser Datei).
 
 ## GitHub Pages & CI-Deployment
 

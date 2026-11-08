@@ -23,21 +23,12 @@ const CHANNELS = [
   { key: "blog", label: "Blog" },
 ];
 
-function getToken() {
-  try {
-    return localStorage.getItem("ghToken") || new URLSearchParams(location.search).get("token") || "";
-  } catch (e) {
-    return "";
-  }
-}
-
 async function fetchJson(path) {
-  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}?ref=${BRANCH}`;
-  const headers = { Accept: "application/vnd.github.raw+json" };
-  const t = getToken();
-  if (t) headers.Authorization = `Bearer ${t}`;
-  const res = await fetch(url, { headers });
-  if (!res.ok) throw new Error(`GitHub API ${res.status} (${path})`);
+  // raw.githubusercontent.com statt api.github.com: kein 60-req/h-API-Rate-Limit,
+  // CORS erlaubt, fuer oeffentliche Repos kein Token noetig.
+  const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${path}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status} (${path})`);
   return res.json();
 }
 
@@ -70,7 +61,6 @@ export default function App() {
   const [persona, setPersona] = React.useState("entwickler");
   const [channel, setChannel] = React.useState("slack");
   const [selected, setSelected] = React.useState(null);
-  const [tokenInput, setTokenInput] = React.useState("");
 
   const load = React.useCallback(async () => {
     try {
@@ -91,16 +81,6 @@ export default function App() {
   }, []);
 
   React.useEffect(() => { load(); }, [load]);
-
-  function saveToken() {
-    const v = tokenInput.trim();
-    try {
-      if (v) localStorage.setItem("ghToken", v);
-      else localStorage.removeItem("ghToken");
-    } catch (e) {}
-    setTokenInput("");
-    load();
-  }
 
   const q = query.trim().toLowerCase();
   const filtered = React.useMemo(
@@ -155,21 +135,10 @@ export default function App() {
               </CardTitle>
               <CardDescription>{error}</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground">
-                Das Repo ist privat. Bei Status 404: fehlender oder ungültiger GitHub-Token (fine-grained, nur
-                Leserecht auf dieses Repo). Der Token wird nur lokal im Browser (localStorage) gespeichert.
-              </p>
-              <div className="flex gap-2">
-                <Input
-                  type="password"
-                  className="max-w-xs"
-                  placeholder="GitHub-Token (read-only)"
-                  value={tokenInput}
-                  onChange={(e) => setTokenInput(e.target.value)}
-                />
-                <Button onClick={saveToken}>Speichern &amp; neu laden</Button>
-              </div>
+            <CardContent>
+              <Button onClick={load}>
+                <RefreshCw className="h-4 w-4" /> Erneut versuchen
+              </Button>
             </CardContent>
           </Card>
         )}

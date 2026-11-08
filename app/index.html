@@ -62,21 +62,11 @@ var CHANNELS = [
   { key: "blog", label: "Blog" }
 ];
 
-function getToken() {
-  try {
-    return localStorage.getItem("ghToken") ||
-      new URLSearchParams(location.search).get("token") || "";
-  } catch (e) { return ""; }
-}
-
 function fetchJson(path) {
-  var url = "https://api.github.com/repos/" + REPO_OWNER + "/" + REPO_NAME +
-    "/contents/" + encodeURIComponent(path).replace(/%2F/g, "/") + "?ref=" + BRANCH;
-  var headers = { Accept: "application/vnd.github.raw+json" };
-  var t = getToken();
-  if (t) headers.Authorization = "Bearer " + t;
-  return fetch(url, { headers: headers }).then(function (res) {
-    if (!res.ok) throw new Error("GitHub API " + res.status + " (" + path + ")");
+  // raw.githubusercontent.com statt api.github.com: kein API-Rate-Limit, CORS ok, kein Token noetig.
+  var url = "https://raw.githubusercontent.com/" + REPO_OWNER + "/" + REPO_NAME + "/" + BRANCH + "/" + path;
+  return fetch(url).then(function (res) {
+    if (!res.ok) throw new Error("HTTP " + res.status + " (" + path + ")");
     return res.json();
   });
 }
@@ -114,7 +104,6 @@ var App = function () {
   var persona = st("entwickler"), setPersona = persona[1]; persona = persona[0];
   var channel = st("slack"), setChannel = channel[1]; channel = channel[0];
   var selected = st(null), setSelected = selected[1]; selected = selected[0];
-  var tokenInput = st(""), setTokenInput = tokenInput[1]; tokenInput = tokenInput[0];
 
   var load = cb(function () {
     return fetchJson("data/index.json").then(function (idx) {
@@ -133,16 +122,6 @@ var App = function () {
   }, []);
 
   eff(function () { load(); }, [load]);
-
-  function saveToken() {
-    var v = tokenInput.trim();
-    try {
-      if (v) localStorage.setItem("ghToken", v);
-      else localStorage.removeItem("ghToken");
-    } catch (e) {}
-    setTokenInput("");
-    load();
-  }
 
   var q = query.trim().toLowerCase();
   var filtered = memo(function () {
@@ -166,10 +145,7 @@ var App = function () {
     return h("div", { className: "wrap" },
       h("div", { className: "status error" },
         h("p", null, h("strong", null, "Daten konnten nicht geladen werden: "), " ", error),
-        h("p", null, "Das Repo ist privat. Bei Status 404: fehlender oder ungültiger GitHub-Token (fine-grained, nur Leserecht auf dieses Repo). Der Token wird nur lokal im Browser (localStorage) gespeichert."),
-        h("input", { className: "token", type: "password", placeholder: "GitHub-Token (read-only)", value: tokenInput, onChange: function (ev) { setTokenInput(ev.target.value); } }),
-        " ",
-        h("button", { className: "pill", onClick: saveToken }, "Speichern & neu laden")
+        h("button", { className: "pill", onClick: load }, "Erneut versuchen")
       )
     );
   }
@@ -226,7 +202,7 @@ var App = function () {
         h("pre", { className: "kanal" }, cv ? cv.text : "")
       )
     ] : null,
-    h("footer", null, "Quelle: github.com/" + REPO_OWNER + "/" + REPO_NAME + " (live) · Tägliche Prüfung um 08:00 (Europe/Berlin) · Bei privatem Repo erscheint ein Token-Feld (Status 404)")
+    h("footer", null, "Quelle: github.com/" + REPO_OWNER + "/" + REPO_NAME + " (live) · Tägliche Prüfung um 08:00 (Europe/Berlin)")
   );
 };
 
