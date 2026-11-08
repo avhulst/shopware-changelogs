@@ -32,7 +32,28 @@ Anleitung für Agent-Läufe (z. B. über den geplanten Tages-Task) und manuelle 
 - **Blog**: `channels.blog.text` als Entwurf an Andreas übergeben, nicht ungefragt veröffentlichen.
 - Ist ein Connector nicht verbunden: Repo-Update trotzdem durchführen und in der Antwort darauf hinweisen.
 
-## 4. React-App
+## 4. Slack-Emoji-Whitelist
+
+Das Workspace hat **keine** passenden Custom-Emojis (`:kritisch:` existiert nicht und wurde als Text angezeigt). Deshalb in Slack-Texten **nur Emojis aus dieser Liste** verwenden (alles Standard-Slack-Emojis, garantiert vorhanden):
+
+| Emoji | Bedeutung im Digest |
+| --- | --- |
+| `:tada:` | neues Release announced |
+| `:rotating_light:` | Critical Fixes / dringende Fixes |
+| `:lock:` | Security-Release / Security-Hinweis |
+| `:sparkles:` | Features / Neuerungen |
+| `:wrench:` | Bugfixes / Verbesserungen |
+| `:bug:` | einzelner Bugfix-Komplex |
+| `:warning:` | Handlungsbedarf / Warnhinweis (z. B. „nicht installierbar") |
+| `:arrow_up:` | Update-Pfad / Upgrade-Hinweis |
+| `:bulb:` | Hinweis / Tipp |
+| `:white_check_mark:` | Entwarnung / bestätigt installierbar |
+| `:books:` | Details/Links-Zeile |
+| `:memo:` | zusätzliche Anmerkung / Nachtrag |
+
+Regel: Keine anderen Emojis ohne vorherige Prüfung. Custom-Emojis vorher mit `slack.search_emojis` verifizieren; Unicode-Standard-Emojis aus dieser Liste sind immer sicher. Unsicher → Emoji weglassen, kein Risiko eingehen.
+
+## 5. React-App
 
 Kein Datenpflege-Aufwand: Die App wird bei Push auf `app/vite/**` automatisch von GitHub Actions gebaut und auf GitHub Pages deployt (`.github/workflows/deploy-app.yml`, URL: https://avhulst.github.io/shopware-changelogs/). Die App lädt `data/index.json` und alle Einträge live per GitHub-API, neue Einträge erscheinen also auch ohne Rebuild automatisch. Nur bei Datenmodell- oder UI-Änderungen ist `app/vite/src/App.jsx` anzupassen (der Deploy folgt dann automatisch). Die Single-File-Variante `app/index.html` (kein Babel, direkt öffnen) parallel pflegen, wenn `app/index.html` selbst geändert wird.
 

@@ -105,7 +105,7 @@
   "channels": {
     "slack": {
       "titel": "*Shopware 6.7.13.0 veröffentlicht* (05.08.2026)",
-      "text": "*Shopware 6.7.13.0 ist da* :tada:\n\n:kritisch: Critical Fix: Store-API-Requests starten keine PHP-Sessions mehr\n\n:sparkles: Highlights:\n• Custom Fields deklarativ (custom-fields.xml)\n• Criteria::excludeFields(), schnellere Kategorien\n• Canonical-URLs bei Pagination, SEO-URLs für Link-Kategorien\n• ZUGFeRD-Korrekturdokumente korrekt\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.13.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.13.0/RELEASE_INFO-6.7.md#67130|Release Info>"
+      "text": "*Shopware 6.7.13.0 ist da* :tada:\n\n:rotating_light: Critical Fix: Store-API-Requests starten keine PHP-Sessions mehr\n\n:sparkles: Highlights:\n• Custom Fields deklarativ (custom-fields.xml)\n• Criteria::excludeFields(), schnellere Kategorien\n• Canonical-URLs bei Pagination, SEO-URLs für Link-Kategorien\n• ZUGFeRD-Korrekturdokumente korrekt\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.13.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.13.0/RELEASE_INFO-6.7.md#67130|Release Info>"
     },
     "teams": {
       "titel": "Shopware 6.7.13.0 veröffentlicht",

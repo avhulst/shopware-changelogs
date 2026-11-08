@@ -95,7 +95,7 @@
   "channels": {
     "slack": {
       "titel": "*Shopware 6.7.15.1 veröffentlicht* (07.10.2026)",
-      "text": "*Shopware 6.7.15.1* :wrench:\n\n:kritisch:\n• Line-Item-Bedingungen matchen wieder alle Typen (Fix aus 6.7.14.0)\n• Theme-Cleanup: keine 404er mehr nach Recompile (CDN)\n\n:sparkles: Optionaler vollständiger Gewährleistungshinweis im Checkout\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.15.1|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.15.1/RELEASE_INFO-6.7.md#67151|Release Info>"
+      "text": "*Shopware 6.7.15.1* :wrench:\n\n:rotating_light:\n• Line-Item-Bedingungen matchen wieder alle Typen (Fix aus 6.7.14.0)\n• Theme-Cleanup: keine 404er mehr nach Recompile (CDN)\n\n:sparkles: Optionaler vollständiger Gewährleistungshinweis im Checkout\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.15.1|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.15.1/RELEASE_INFO-6.7.md#67151|Release Info>"
     },
     "teams": {
       "titel": "Shopware 6.7.15.1 veröffentlicht",

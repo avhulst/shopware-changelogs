@@ -118,7 +118,7 @@
   "channels": {
     "slack": {
       "titel": "*Shopware 6.7.11.0 veröffentlicht* (16.06.2026)",
-      "text": "*Shopware 6.7.11.0 ist da* :tada:\n\n:sparkles: Highlights:\n• Experimenteller MCP-Server für KI-Clients (Flag MCP_SERVER, /api/_mcp)\n• Neues Storefront-Komponentensystem (Twig UX) + Vite-Dev-Server\n• 7 neue Foreign-Key-Resolver für die Sync API\n• Mail-Vorschau sales-channel-aware\n\n:kritisch: Critical Fix: Elasticsearch-Ausfälle brechen Bestellungen nicht mehr ab\n\n:books: Details: <https://github.com/shopware/shopware/releases/tag/v6.7.11.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.11.0/RELEASE_INFO-6.7.md#67110|Release Info>"
+      "text": "*Shopware 6.7.11.0 ist da* :tada:\n\n:sparkles: Highlights:\n• Experimenteller MCP-Server für KI-Clients (Flag MCP_SERVER, /api/_mcp)\n• Neues Storefront-Komponentensystem (Twig UX) + Vite-Dev-Server\n• 7 neue Foreign-Key-Resolver für die Sync API\n• Mail-Vorschau sales-channel-aware\n\n:rotating_light: Critical Fix: Elasticsearch-Ausfälle brechen Bestellungen nicht mehr ab\n\n:books: Details: <https://github.com/shopware/shopware/releases/tag/v6.7.11.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.11.0/RELEASE_INFO-6.7.md#67110|Release Info>"
     },
     "teams": {
       "titel": "Shopware 6.7.11.0 veröffentlicht",

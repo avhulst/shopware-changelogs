@@ -132,7 +132,7 @@
   "channels": {
     "slack": {
       "titel": "*Shopware 6.7.16.0 veröffentlicht* (02.11.2026)",
-      "text": "*Shopware 6.7.16.0 ist da* :tada:\n\n:kritisch: 5 Critical Fixes:\n• Theme-Konfiguration vererbt korrekt an alle abgeleiteten Themes\n• CSP-Header für statische HTML/SVG (Apache) - .htaccess prüfen!\n• Standardwährung im Sales-Channel-Kontext wieder korrekt\n• Rule-Builder: Line-Item-Bedingungen matchen alle Typen\n• Streichpreis-Ratio matcht keine Items ohne Listenpreis\n\n:sparkles: Features:\n• Digitale Produkte mit externer Dateizuweisung\n• System-Konfigurationstabs für Plugins\n\n:books: Details: <https://github.com/shopware/shopware/releases/tag/v6.7.16.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.16.0/RELEASE_INFO-6.7.md#67160|Release Info>"
+      "text": "*Shopware 6.7.16.0 ist da* :tada:\n\n:rotating_light: 5 Critical Fixes:\n• Theme-Konfiguration vererbt korrekt an alle abgeleiteten Themes\n• CSP-Header für statische HTML/SVG (Apache) - .htaccess prüfen!\n• Standardwährung im Sales-Channel-Kontext wieder korrekt\n• Rule-Builder: Line-Item-Bedingungen matchen alle Typen\n• Streichpreis-Ratio matcht keine Items ohne Listenpreis\n\n:sparkles: Features:\n• Digitale Produkte mit externer Dateizuweisung\n• System-Konfigurationstabs für Plugins\n\n:books: Details: <https://github.com/shopware/shopware/releases/tag/v6.7.16.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.16.0/RELEASE_INFO-6.7.md#67160|Release Info>"
     },
     "teams": {
       "titel": "Shopware 6.7.16.0 veröffentlicht",
