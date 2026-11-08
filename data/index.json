@@ -10,12 +10,100 @@
       "file": "data/2026-11-02-v6.7.16.0.json"
     },
     {
+      "version": "6.7.15.1",
+      "releasedAt": "2026-10-07",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Regressions-Fixes (Rule-Builder-Bedingungen, digitale Produkte, Feed-Kanäle), Theme-Cleanup ohne 404er, optionaler Gewährleistungshinweis",
+      "file": "data/2026-10-07-v6.7.15.1.json"
+    },
+    {
       "version": "6.7.15.0",
       "releasedAt": "2026-10-01",
       "checkedAt": "2026-11-08",
       "type": "patch",
       "kurztitel": "Document Generation v2 (experimentell), OAuth-Browser-Login für CLI-Tools, MCP-Toolset-Auswahl, Admin-UI-Rework",
       "file": "data/2026-10-01-v6.7.15.0.json"
+    },
+    {
+      "version": "6.7.14.2",
+      "releasedAt": "2026-09-23",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Critical Fix: Produkt- und Promotion-Duplizieren funktioniert wieder",
+      "file": "data/2026-09-23-v6.7.14.2.json"
+    },
+    {
+      "version": "6.7.14.1",
+      "releasedAt": "2026-09-16",
+      "checkedAt": "2026-11-08",
+      "type": "security",
+      "kurztitel": "Webhook-Härtung (keine Session-Tokens/Recovery-Mails), avatarMedia-Validierung, Newsletter-Double-Opt-in, Aggregation-Zeichen",
+      "file": "data/2026-09-16-v6.7.14.1.json"
+    },
+    {
+      "version": "6.7.14.0",
+      "releasedAt": "2026-09-09",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "MCP ohne Feature-Flag (Toolsets, Discovery), Admin-API flächendeckend ACL-pflichtig, E-Rechnung (GARAN, EU-Hinweis), Vue SFCs, Keyset-Pagination (85 Änderungen)",
+      "file": "data/2026-09-09-v6.7.14.0.json"
+    },
+    {
+      "version": "6.7.13.1",
+      "releasedAt": "2026-08-25",
+      "checkedAt": "2026-11-08",
+      "type": "security",
+      "kurztitel": "Twig-String-Callables, Admin-Passwort-Recovery über APP_URL, Webhook-Ziel-Validierung, ACL-Rollen-Schutz, Elasticsearch-Reindex",
+      "file": "data/2026-08-25-v6.7.13.1.json"
+    },
+    {
+      "version": "6.7.13.0",
+      "releasedAt": "2026-08-05",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Statelesse Store-API, deklarative Custom Fields (custom-fields.xml), Canonical-URLs, ZUGFeRD-Korrektur (55 Änderungen)",
+      "file": "data/2026-08-05-v6.7.13.0.json"
+    },
+    {
+      "version": "6.7.12.2",
+      "releasedAt": "2026-07-23",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Widerrufs-Simulation, Cache-Compression-Config abwärtskompatibel, dompdf 3.1.6 (Security)",
+      "file": "data/2026-07-23-v6.7.12.2.json"
+    },
+    {
+      "version": "6.7.12.1",
+      "releasedAt": "2026-07-07",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Macht 6.7.12.0 installierbar (Frozen-Container-Parameter-Bag, Twig 3.28)",
+      "file": "data/2026-07-07-v6.7.12.1.json"
+    },
+    {
+      "version": "6.7.12.0",
+      "releasedAt": "2026-07-07",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Agentic Files (/llms.txt, /agents.md), Google Ads Enhanced Conversions, Rule-Builder 'Menge pro Artikel' - Release war bei Erscheinen nicht installierbar (54 Änderungen)",
+      "file": "data/2026-07-07-v6.7.12.0.json"
+    },
+    {
+      "version": "6.7.11.1",
+      "releasedAt": "2026-06-23",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Bugfix-Release: MCP-Auth-Listener, Import-Map, Footer-Navigation",
+      "file": "data/2026-06-23-v6.7.11.1.json"
+    },
+    {
+      "version": "6.7.11.0",
+      "releasedAt": "2026-06-16",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Experimenteller MCP-Server, neues Storefront-Komponentensystem (Twig UX, Vite), Sync-API-Foreign-Key-Resolver (32 Änderungen)",
+      "file": "data/2026-06-16-v6.7.11.0.json"
     }
   ]
 }
