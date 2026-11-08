@@ -35,6 +35,17 @@ Die App ruft `https://api.github.com/repos/avhulst/shopware-changelogs/contents/
 - Alternativ: Token einmalig per URL übergeben: `index.html?token=DEIN_TOKEN` (wird dann in `localStorage` als `ghToken` gehalten) oder direkt in den Browser-DevTools setzen: `localStorage.setItem("ghToken","…")`.
 - Der Token verlässt den Browser nicht — er wird nur für die GitHub-API-Anfragen genutzt.
 
-## GitHub Pages
+## GitHub Pages & CI-Deployment
 
-Funktioniert nur bei **öffentlichen** Repos kostenlos. Für private Repos ist Pages ein kostenpflichtiges Feature — solange das Repo privat bleibt, `dist/` (Variante B) bzw. `index.html` (Variante A) auf einem anderen Weg hosten oder lokal nutzen.
+Seit App v1.2 (08.11.2026) liegt unter `.github/workflows/deploy-app.yml` eine GitHub-Actions-CI. Bei jedem Push auf `main` (Änderungen unter `app/vite/**` oder am Workflow selbst) sowie per Hand (`workflow_dispatch`):
+
+1. Node 22 + `npm install` im Ordner `app/vite`
+2. `npm run build` → statisches `dist/` (React gebündelt, kein CDN)
+3. Deploy des `dist/` auf **GitHub Pages** (`actions/deploy-pages@v4`, moderner Artefakt-Flow statt alter `gh-pages`-Branch)
+
+Die App liegt danach unter `https://avhulst.github.io/shopware-changelogs/`. Der Build nutzt `base: "./"` im `vite.config.js`, deshalb funktioniert das Artefakt auch pfadrelativ auf Pages.
+
+**Wichtig bei privatem Repo:** GitHub Pages ist für private Repos ein kostenpflichtiges Feature (Pro/Team/Enterprise). Solange das Repo privat ist, schlägt der Deploy-Job fehl. Zwei Optionen:
+
+- Repo auf **public** stellen → Pages + CI laufen ohne Zusatzkosten, und die App braucht dann auch keinen GitHub-Token mehr (die öffentliche Contents-API ist ohne Token abrufbar; die Changelog-Daten sind ohnehin nicht sensibel, da die Persona-Texte ohnehin in Slack/Teams/Blog verteilt werden).
+- Bei **Plan-Upgrade** (Pages für private Repos) oder Deploy auf ein anderes Ziel (Netlify/Vercel/eigener Server): der Build-Job bleibt gleich, nur der Deploy-Schritt lässt sich leicht umstellen.
