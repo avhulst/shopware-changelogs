@@ -1,0 +1,112 @@
+{
+  "version": "6.7.14.1",
+  "releasedAt": "2026-09-16",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.14.1"
+    },
+    {
+      "name": "RELEASE_INFO-6.7.md (Abschnitt 6.7.14.1)",
+      "url": "https://github.com/shopware/shopware/blob/v6.7.14.1/RELEASE_INFO-6.7.md#67141",
+      "note": "Vertiefte Release-Info pro Release; Abschnitt als Original unter release-info/ archiviert."
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "releaseInfo": {
+    "file": "release-info/2026-09-16-v6.7.14.1.md",
+    "bereiche": [
+      "Security Fixes",
+      "Core",
+      "API"
+    ],
+    "einzelnderungen": 8
+  },
+  "type": "security",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Webhooks bekommen keine sensiblen Werte mehr",
+        "summary": "Passwort-Recovery- und Mail-Events werden nicht mehr an Webhooks geliefert; contextToken, Double-Opt-in- und Newsletter-URLs verschwinden aus Webhook-Payloads (in Flow Buildern weiterhin verfügbar)."
+      },
+      {
+        "title": "Profil-Self-Service: avatarMedia nur als ID-Link",
+        "summary": "PATCH /api/_info/me akzeptiert avatarMedia nur als {\"id\": ...}; sonst 403 FRAMEWORK__MISSING_PRIVILEGE_ERROR."
+      },
+      {
+        "title": "Newsletter aktiviert Double-Opt-in konsistent",
+        "summary": "Die konfigurierte Double-Opt-in-Pflicht wird bei der Newsletter-Aktivierung durchgesetzt."
+      },
+      {
+        "title": "Aggregation-Bezeichner ohne unsichere Zeichen",
+        "summary": "Backtick, Fragezeichen, Doppelpunkt und Steuerzeichen werden mit 400 FRAMEWORK__INVALID_AGGREGATION_QUERY abgelehnt."
+      }
+    ],
+    "features": [],
+    "core": [
+      "Kunden-Bestätigungs-Hashes verschwinden aus API-Responses und Webhook-Payloads.",
+      "POST /api/_action/clone/user und clone/integration geben 403 (User/Integration nicht mehr klonbar).",
+      "EventDataCollection wird in 6.8 final; Apps mit betroffenen Webhook-Subscriptions laufen noch bis 6.8, dann Manifest-Ablehnung."
+    ]
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.14.1 für Entwickler",
+      "punkte": [
+        "Security-Release mit 8 Fixes - zeitnah einspielen.",
+        "Webhook-Härtung: user.recovery.request, customer.recovery.request, mail.before.send, mail.after.create.message werden nicht mehr an Webhooks geliefert; contextToken (checkout.customer.login), confirmUrl (double_opt_in_*), url (newsletter.register) aus Webhook-Payloads entfernt - in Flow Buildern und Mail-Templates weiter verfügbar ({{ contextToken }} etc.).",
+        "Apps mit Subscriptions auf diese Events: Manifest validiert noch bis 6.8 (Deprecation-Warnung), danach Ablehnung - jetzt umbauen.",
+        "Neues Attribut NotHookable zum Opt-out eigener Events aus der Webhook-Delivery; EventDataCollection::add() mit EventDataCollection::HIDDEN_FROM_WEBHOOK zum Verstecken von Werten.",
+        "PATCH /api/_info/me: avatarMedia nur als {\"id\": \"<media-id>\"} (403 sonst); User-/Integration-Kloning über Admin-API entfernt (403).",
+        "Aggregation-Namen/Range-Keys: Backtick, ?, : und Steuerzeichen werden abgelehnt (400 FRAMEWORK__INVALID_AGGREGATION_QUERY).",
+        "Newsletter: Double-Opt-in-Pflicht wird konsistent erzwungen; Kunden-Registrierungs-Hashes nicht mehr in API-Responses/Webhooks.",
+        "EventDataCollection wird final in 6.8 - eigene Subklassen abbauen."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.14.1 für Projektmanager",
+      "punkte": [
+        "Sicherheits-Release: sensible Daten (Session-Tokens, Opt-in-Links) verlassen das System nicht mehr über Webhooks.",
+        "Abhängigkeits-Check: Apps mit Recovery-/Mail-Webhooks identifizieren und für 6.8 umbauen (jetzt nur Deprecation).",
+        "Aufwand gering; Newsletter-Prozess (Double-Opt-in) nach Update kurz verifizieren."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.14.1 für den Vertrieb",
+      "punkte": [
+        "Datenschutz-/Security-Argument: Session-Tokens und Bestätigungs-Links fließen nicht mehr in externe Webhooks.",
+        "Gesprächsanlass für Bestandskunden mit App-Ökosystemen: Webhook-Umbau vor 6.8 planen (Dienstleistung)."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.14.1 veröffentlicht* (16.09.2026) :lock:",
+      "text": ":lock: *Shopware 6.7.14.1* - Security-Release\n\n• Webhooks: keine Session-Tokens/Opt-in-Links/Recovery-Mails mehr\n• avatarMedia nur als ID-Link (403 sonst)\n• Newsletter: Double-Opt-in konsistent\n• Aggregation-Namen validiert\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.14.1|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.14.1/RELEASE_INFO-6.7.md#67141|Release Info>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.14.1 veröffentlicht (Security)",
+      "text": "**Shopware 6.7.14.1 veröffentlicht** (16.09.2026) - Security-Release\n\n- Webhooks erhalten keine Recovery-/Mail-Events und keine contextToken/confirmUrl/url-Werte mehr\n- Apps mit solchen Subscriptions: bis 6.8 umbauen\n- PATCH /api/_info/me: avatarMedia nur als ID-Link\n- Newsletter-Double-Opt-in konsistent erzwungen\n- User-/Integration-Kloning über Admin API entfernt\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.14.1\nRelease Info: https://github.com/shopware/shopware/blob/v6.7.14.1/RELEASE_INFO-6.7.md#67141"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.14.1: Webhooks und sensible Daten",
+      "text": "# Shopware 6.7.14.1: Webhooks und sensible Daten\n\nDas Sicherheits-Release 6.7.14.1 härtet vor allem die Webhook-Schiene. Passwort-Recovery- und Mail-Events werden gar nicht mehr an Webhooks ausgeliefert; Session-Tokens, Double-Opt-in-Links und Newsletter-URLs verschwinden aus den Payloads. In Flow Buildern und Mail-Templates bleiben die Werte verfügbar.\n\nWeitere Fixes: Der Profil-Self-Service akzeptiert Avatar-Medien nur noch als ID-Referenz, Newsletter-Activierungen erzwingen das konfigurierte Double-Opt-in, Aggregation-Bezeichner mit unsicheren Zeichen werden abgelehnt, und User/Integration lassen sich nicht mehr über die Admin-API klonen.\n\nApps, die Recovery- oder Mail-Events abonnieren, laufen noch bis Shopware 6.8, danach wird das Manifest abgelehnt - der Umbau sollte jetzt eingeplant werden.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.14.1*\n*Release Info: https://github.com/shopware/shopware/blob/v6.7.14.1/RELEASE_INFO-6.7.md#67141*"
+    }
+  }
+}

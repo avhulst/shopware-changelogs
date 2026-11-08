@@ -1,0 +1,87 @@
+{
+  "version": "6.7.14.2",
+  "releasedAt": "2026-09-23",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.14.2"
+    },
+    {
+      "name": "RELEASE_INFO-6.7.md (Abschnitt 6.7.14.2)",
+      "url": "https://github.com/shopware/shopware/blob/v6.7.14.2/RELEASE_INFO-6.7.md#67142",
+      "note": "Vertiefte Release-Info pro Release; Abschnitt als Original unter release-info/ archiviert."
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "releaseInfo": {
+    "file": "release-info/2026-09-23-v6.7.14.2.md",
+    "bereiche": [
+      "Critical Fixes"
+    ],
+    "einzelnderungen": 1
+  },
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Produkt- und Werbeaktionen-Duplizieren funktioniert wieder",
+        "summary": "Resubmission geschützter Felder (Variantenzähler, Einlösungs-Zähler) führte zum Fehlschlag; Duplikate starten jetzt mit korrekten/neutralen Zählern."
+      }
+    ],
+    "features": [],
+    "core": []
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.14.2 für Entwickler",
+      "punkte": [
+        "Ein Critical Fix: Duplizieren von Produkten und Promotions schlägt nicht mehr fehl (Request resubmittete protected Fields: variant count bzw. total/per-customer redemptions).",
+        "Verhalten: duplizierte Promotions starten mit null Einlösungen statt die des Originals zu erben - ggf. Workflows prüfen, die auf geerbte Zähler setzten.",
+        "Kleines Patch-Release, kein weiterer Handlungsbedarf."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.14.2 für Projektmanager",
+      "punkte": [
+        "Mini-Release mit einem Fix für ein betriebsrelevantes Problem (Duplizieren von Produkten/Promotions).",
+        "Aufwand minimal; mit regulärem Deployment mitnehmbar."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.14.2 für den Vertrieb",
+      "punkte": [
+        "Kein vertriebliches Feature; Reaktionsgeschwindigkeit auf Katalogpflege-Fehler als Pflege-Nachweis nutzbar."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.14.2 veröffentlicht* (23.09.2026)",
+      "text": "*Shopware 6.7.14.2* :wrench:\n\n• Produkt- und Promotion-Duplizieren funktioniert wieder (protected fields Fix)\n• Duplizierte Promotionen starten mit null Einlösungen\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.14.2|Release Notes>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.14.2 veröffentlicht",
+      "text": "**Shopware 6.7.14.2 veröffentlicht** (23.09.2026)\n\n- Produkt- und Promotion-Duplizieren funktioniert wieder\n- Duplizierte Promotionen starten mit null Einlösungen\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.14.2"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.14.2: Duplizieren repariert",
+      "text": "# Shopware 6.7.14.2: Duplizieren repariert\n\nEin dezentes, aber wichtiges Patch-Release: Das Duplizieren von Produkten konnte fehlschlagen, weil der Request die geschützte Variantenzahl mitschickte; bei Werbeaktionen traf dasselbe die geschützten Einlösungszähler. Beide Abläufe funktionieren wieder - duplizierte Promotionen starten jetzt mit null Einlösungen, statt die Nutzung des Originals zu erben.\n\nFür Katalog- und Kampagnen-Pflege ist das Update eine kleine Erleichterung.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.14.2*"
+    }
+  }
+}
