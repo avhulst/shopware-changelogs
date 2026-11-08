@@ -1,0 +1,87 @@
+{
+  "version": "6.7.12.2",
+  "releasedAt": "2026-07-23",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.12.2"
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Simulierung von Widerrufs-Anfrage-Formulardaten gefixt",
+        "summary": ""
+      },
+      {
+        "title": "Abwärtskompatibilität der neuen Cache-Compression-Config-Keys",
+        "summary": ""
+      },
+      {
+        "title": "dompdf auf 3.1.6 aktualisiert (Security-Advisories)",
+        "summary": ""
+      }
+    ],
+    "features": [],
+    "core": []
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.12.2 für Entwickler",
+      "punkte": [
+        "Simulierung von Widerrufs-Anfrage-Formulardaten gefixt",
+        "Abwärtskompatibilität der neuen Cache-Compression-Config-Keys",
+        "dompdf auf 3.1.6 aktualisiert (Security-Advisories)",
+        "dompdf-Update auf 3.1.6 schließt offene Security-Advisories (PDF-Generierung) - Update empfohlen.",
+        "Cache-Compression-Config-Keys (aus 12.0 deprecated) sind abwärtskompatibel - Migrationen brechen nicht."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.12.2 für Projektmanager",
+      "punkte": [
+        "Kleines Patch-Release (3 Fixes) in der 6.7.12.x-Linie.",
+        "Security-relevant: dompdf-Update - zeitnah einspielen, falls PDF-Dokumente (Rechnungen, Lieferscheine) generiert werden.",
+        "Kleiner Aufwand, mit regulärem Deployment kombinierbar."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.12.2 für den Vertrieb",
+      "punkte": [
+        "Sicherheits-Update (dompdf) - Standardargument für laufende Wartungsverträge.",
+        "Schnelle Patch-Frequenz der 6.7.12er-Linie zeigt Verlässlichkeit der Plattform."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.12.2 veröffentlicht* (23.07.2026)",
+      "text": "*Shopware 6.7.12.2* :wrench:\n\n• Widerrufs-Formular-Simulation gefixt\n• Cache-Compression-Config abwärtskompatibel\n• dompdf 3.1.6 (Security)\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.12.2|Release Notes>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.12.2 veröffentlicht",
+      "text": "**Shopware 6.7.12.2 veröffentlicht** (23.07.2026)\n\n- Simulation von Widerrufs-Anfrage-Formulardaten gefixt\n- Cache-Compression-Config-Keys abwärtskompatibel\n- dompdf 3.1.6 (Security-Advisories)\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.12.2"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.12.2: Wartungs-Release",
+      "text": "# Shopware 6.7.12.2: Wartungs-Release\n\nDrei Backport-Fixes in der 6.7.12.x-Linie: Die Simulation von Widerrufs-Anfrage-Formularen funktioniert wieder, die neuen Cache-Compression-Konfigurationsschlüssel verhalten sich abwärtskompatibel, und dompdf wurde als Reaktion auf Sicherheits-Advisories auf Version 3.1.6 aktualisiert.\n\nBesonders das dompdf-Update ist einschlägig, da PDF-Dokumente wie Rechnungen und Lieferscheine zentral sind. Empfehlung: zeitnah einspielen.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.12.2*"
+    }
+  }
+}

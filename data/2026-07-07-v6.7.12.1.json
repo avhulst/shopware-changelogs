@@ -1,0 +1,82 @@
+{
+  "version": "6.7.12.1",
+  "releasedAt": "2026-07-07",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.12.1"
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Frozen container parameter bag mit deprecated Cache-Config gefixt",
+        "summary": ""
+      },
+      {
+        "title": "Kompatibilität mit Twig 3.28 (6.7.12.x-Backport)",
+        "summary": ""
+      }
+    ],
+    "features": [],
+    "core": []
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.12.1 für Entwickler",
+      "punkte": [
+        "Frozen container parameter bag mit deprecated Cache-Config gefixt",
+        "Kompatibilität mit Twig 3.28 (6.7.12.x-Backport)",
+        "Wichtig: 6.7.12.1 macht die Inhalte von 6.7.12.0 erstmals installierbar - 12.0 nie deployen.",
+        "Kern des Fixes: Parameter-Bag des gefrorenen Containers mit der in 12.0 deprecated Cache-Compression-Config; zusätzlich Twig-3.28-Kompatibilität."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.12.1 für Projektmanager",
+      "punkte": [
+        "Kleines Patch-Release (2 Fixes) in der 6.7.12.x-Linie.",
+        "Prozessnotiz: 6.7.12.1 ist die erste tatsächlich installierbare Version der 6.7.12er-Linie - Release-Planung auf 12.1+ stellen.",
+        "Update-Aufwand gering; nur Cache-Konfiguration mit deprecated Keys prüfen."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.12.1 für den Vertrieb",
+      "punkte": [
+        "Kein vertriebsrelevanter Inhalt - technisches Wartungs-Release; aktivierbares Argument ist die schnelle Fehlerkorrektur durch Shopware.",
+        "Für Bestandskunden: Angebot, Shop von 6.7.11.x direkt auf aktuelle 6.7.12.x+ zu heben."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.12.1 veröffentlicht* (07.07.2026)",
+      "text": "*Shopware 6.7.12.1* :wrench: macht 6.7.12.0 installierbar\n\n• Frozen-Container-Parameter-Bag mit deprecated Cache-Config gefixt\n• Twig-3.28-Kompatibilität\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.12.1|Release Notes>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.12.1 veröffentlicht",
+      "text": "**Shopware 6.7.12.1 veröffentlicht** (07.07.2026)\n\n- Macht 6.7.12.0 installierbar (brechender Fehler behoben)\n- Frozen-Container-Parameter-Bag mit deprecated Cache-Config gefixt\n- Kompatibilität mit Twig 3.28\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.12.1"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.12.1: Wartungs-Release",
+      "text": "# Shopware 6.7.12.1: Wartungs-Release\n\n6.7.12.1 behebt den brechenden Fehler aus 6.7.12.0 und macht die Änderungen der 6.7.12er-Linie erstmals installierbar. Neben dem Fix am Parameter-Bag des gefrorenen Containers (deprecated Cache-Compression-Konfiguration) wird die Kompatibilität mit Twig 3.8 hergestellt.\n\nHinweis laut Body: Twig 3.28.\n\nFür Projekte: Deployments auf die 6.7.12er-Linie immer mit 6.7.12.1 oder neuer starten.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.12.1*"
+    }
+  }
+}
