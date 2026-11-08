@@ -1,0 +1,123 @@
+{
+  "version": "6.7.16.0",
+  "releasedAt": "2026-11-02",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.16.0"
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MySQL 9.7",
+      "MariaDB 11",
+      "MariaDB 12"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Theme-Konfiguration erreicht alle abgeleiteten Themes",
+        "summary": "Speichern eines Basis-Theme aktualisiert vererbte Laufzeitkonfiguration und kompiliert zugewiesene abgeleitete Themes auf jeder Vererbungsebene neu. Deaktivieren/Deinstallieren eines Basis-Theme wird blockiert, solange abgeleitete Themes einem Sales Channel zugewiesen sind."
+      },
+      {
+        "title": "Content Security Policy für statische HTML- und SVG-Assets (Apache)",
+        "summary": "Die .htaccess-Vorlage sendet jetzt script-src 'none' u.a. für bestehende .html-Dateien unter public/media und public/thumbnail sowie für SVG-Dateien. Deployed .htaccess muss den aktualisierten Shopware-Abschnitt enthalten."
+      },
+      {
+        "title": "Sales-Channel-Kontexte liefern wieder die Standardwährung",
+        "summary": "SalesChannelContext::getSalesChannel()->getCurrency() liefert wieder die Standardwährung des Sales Channel; getCurrency() die aktuell gewählte. Stellt Verhalten vor 6.7.15.0 wieder her."
+      },
+      {
+        "title": "Line-Item-Bedingungen werten Line-Items nach ihren Daten aus",
+        "summary": "Seit 6.7.14.0 werteten die meisten Rule-Builder-Bedingungen nur Line-Items vom Typ product aus; Custom- und Credit-Items sowie Extensions-Items matchten nicht. Jetzt werten Bedingungen die getragenen Daten statt den Typ aus."
+      },
+      {
+        "title": "Preis/Streichpreis-Ratio matcht keine Line-Items ohne Streichpreis mehr",
+        "summary": "Ohne Listenpreis hat ein Item jetzt kein Verhältnis mehr; nur Is not equal to und Is empty matchen. Für Artikel ohne Streichpreis statt Is equal to 0 künftig Is empty verwenden."
+      }
+    ],
+    "features": [
+      {
+        "title": "Digitale Produkte mit externer Dateizuweisung",
+        "summary": "Digitale Produkte können ohne hochgeladene Dateien gespeichert werden, wenn die Dateizuweisung extern erfolgt."
+      },
+      {
+        "title": "System-Konfigurationstabs für Plugins",
+        "summary": "Plugin-Entwickler können Karten der Systemkonfiguration in Tabs gruppieren. Optional, Teilnutzung möglich; nicht zugeordnete Karten landen automatisch im Tab Allgemein."
+      }
+    ],
+    "core": [
+      "Dokument-Typ-Deprecations werfen bei aktivem v6.9.0.0; document.typeName und v2-Type-Registry verwenden.",
+      "ImportExportProfileTranslation-Konstruktion wirft bei aktivem v6.8.0.0; technische Profilnamen statt Label-Übersetzungen nutzen.",
+      "InvalidPriceFieldTypeException ersetzt durch DataAbstractionLayerException::invalidPriceFieldType().",
+      "Drei 6.8-Verhaltensänderungen einzeln testbar: MEDIA_URL_PATH_ENCODING, PROPORTIONAL_CART_TAXES, DELETE_CART_AFTER_ORDER_CREATION.",
+      "Neues ProductBackInStockEvent; ProductNoLongerAvailableEvent nur noch für nicht mehr verfügbare Produkte (bei beiden Richtungen abonnieren).",
+      "Snippets können über das private Dateisystem (files/) bereitgestellt werden, niedrigste Priorität.",
+      "Asset-Installation auf S3-kompatiblen Speicher überschreibt mit --force bestehende Dateien, ohne das Verzeichnis vorab zu löschen."
+    ]
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.16.0 für Entwickler",
+      "punkte": [
+        "Rule-Builder-Bedingungen werten wieder alle Line-Item-Typen aus (Fix seit 6.7.14.0); Erweiterungen müssen nichts anpassen.",
+        "SalesChannelContext::getSalesChannel()->getCurrency() liefert wieder die Standardwährung (Regression aus 6.7.15.0 behoben); für die gewählte Währung getCurrency() nutzen.",
+        "Neues Event ProductBackInStockEvent; Subscriber, die auf beide Richtungen reagieren (z.B. Cache-Invalidierung), müssen beide Events abonnieren.",
+        "Deprecations: Dokument-Typen (v6.9), ImportExportProfileTranslation (v6.8), InvalidPriceFieldTypeException -> DataAbstractionLayerException::invalidPriceFieldType().",
+        "HreflangLoaderParameter ohne $homepage-Argument: Fallback auf frontend.home.page ist deprecated, in 6.8 entfernt; Argument explizit übergeben.",
+        "6.8-Verhalten einzeln voraktivierbar: MEDIA_URL_PATH_ENCODING=1, PROPORTIONAL_CART_TAXES=1, DELETE_CART_AFTER_ORDER_CREATION=1 (Migration in UPGRADE-6.8.md).",
+        "Snippets können jetzt aus dem privaten Filesystem (files/snippets/...) geladen werden; danach cache:clear bzw. Cache-Tag admin-snippet invalidieren.",
+        "System-Konfiguration: Karten können in Tabs gruppiert werden (Beispiel in RELEASE_INFO-6.7.md).",
+        "Apache: aktualisierte .htaccess.dist mit CSP-Headern übernehmen; Installationen ohne Shopware-Update-Marker manuell mergen."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.16.0 für Projektmanager",
+      "punkte": [
+        "Patch-Release mit 5 kritischen Fixes: Theme-Vererbung, CSP-Sicherheit, Standardwährung im Sales-Channel-Kontext, Rule-Builder-Bedingungen, Preis/Streichpreis-Logik.",
+        "Wichtig für laufende Projekte: .htaccess-Template manuell prüfen (Sicherheitsfix); Rabatt- und Versandregel-Tests nach dem Update empfohlen.",
+        "Neue Features: Digitale Produkte mit extern verwalteten Dateien (wichtig für Kunden mit Download-Produkten), Konfigurationstabs für Plugin-Einstellungen.",
+        "Update-Aufwand: gering; Verhalten seit 6.7.14.0/6.7.15.0 wird großteils auf den alten Stand zurückkorrigiert.",
+        "Planungshinweis: 6.8-Verhaltensänderungen lassen sich bereits jetzt einzeln testen (Media-URL-Encoding, proportionale Warenkorb-Steuern, Cart-Löschung)."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.16.0 für den Vertrieb",
+      "punkte": [
+        "Neues Release verbessert Stabilität und Sicherheit (u.a. Schutz vor Skript-Injection in hochgeladenen HTML/SVG-Dateien) - gutes Argument für geplante Updates bei Bestandskunden.",
+        "Für Kunden mit digitalen Produkten: Dateien können jetzt extern verwaltet werden - eröffnet einfachere Integrationen mit bestehenden Systemen (DAM, externe CDN).",
+        "Korrekte Rabatt-Logik: Streichpreis-Aktionen und Versandkosten-Bedingungen verhalten sich wieder verlässlich - weniger Supportfälle nach Aktionen.",
+        "Theme-Pflege wird effizienter: Änderungen am Basis-Theme gelten automatisch für alle abgeleiteten Themes - weniger Aufwand bei Multi-Brand-Shops.",
+        "Update-Beratung: Mit 6.7.16.0 ist der Sprung auf den aktuellen Stand der 6.7er-Linie ohne größere Anpassungen möglich."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.16.0 veröffentlicht* (02.11.2026)",
+      "text": "*Shopware 6.7.16.0 ist da* :tada:\n\n:kritisch: 5 Critical Fixes:\n• Theme-Konfiguration vererbt korrekt an alle abgeleiteten Themes\n• CSP-Header für statische HTML/SVG (Apache) - .htaccess prüfen!\n• Standardwährung im Sales-Channel-Kontext wieder korrekt\n• Rule-Builder: Line-Item-Bedingungen matchen alle Typen\n• Streichpreis-Ratio matcht keine Items ohne Listenpreis\n\n:sparkles: Features:\n• Digitale Produkte mit externer Dateizuweisung\n• System-Konfigurationstabs für Plugins\n\n:books: Details: <https://github.com/shopware/shopware/releases/tag/v6.7.16.0|Release Notes>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.16.0 veröffentlicht",
+      "text": "**Shopware 6.7.16.0 veröffentlicht** (02.11.2026)\n\n**Kritische Fixes**\n- Theme-Konfiguration vererbt korrekt an alle abgeleiteten Themes\n- CSP-Header für statische HTML/SVG-Assets (Apache) - .htaccess-Template prüfen\n- Standardwährung im Sales-Channel-Kontext wieder korrekt\n- Rule-Builder-Bedingungen werten alle Line-Item-Typen aus\n- Preis/Streichpreis-Ratio: keine Matches ohne Listenpreis mehr\n\n**Neue Features**\n- Digitale Produkte mit externer Dateizuweisung\n- System-Konfigurationstabs für Plugins\n\n**Für Projekte**\n- Update-Aufwand gering; Rabatt-/Versandregeln nach Update testen\n- 6.8-Verhaltensänderungen einzeln testbar (Feature-Flags)\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.16.0"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.16.0: Die wichtigsten Änderungen im Überblick",
+      "text": "# Shopware 6.7.16.0: Die wichtigsten Änderungen im Überblick\n\nShopware hat Version 6.7.16.0 veröffentlicht. Das Patch-Release bringt fünf kritische Fehlerbehebungen, zwei neue Features und eine Reihe von Vorbereitungen auf Version 6.8. Hier die Änderungen, die für Shop-Betreiber und Agenturen wirklich zählen.\n\n## Sicherheit: Schutz für statische HTML- und SVG-Dateien\n\nDie Apache-Konfiguration sendet künftig Content-Security-Policy-Header für statische HTML-Dateien unter public/media und public/thumbnail sowie für SVG-Dateien. Hochgeladene Dokumente können damit keine Skripte mehr ausführen. Wichtig für Betreiber: Die deployte .htaccess muss den aktualisierten Shopware-Abschnitt enthalten - bei Installationen ohne Update-Marker ist ein manueller Merge nötig.\n\n## Theme-Pflege: Vererbung funktioniert wieder zuverlässig\n\nBisher mussten abgeleitete Themes nach Änderungen am Basis-Theme einzeln gespeichert werden. Jetzt aktualisiert Shopware die vererbte Konfiguration auf jeder Ebene und kompiliert zugewiesene Themes automatisch neu. Gleichzeitig blockiert Shopware das Entfernen eines Basis-Theme, solange abgeleitete Themes aktiv zugewiesen sind - ein sinnvoller Schutz gegen kaputte Shop-Frontends.\n\n## Rabatte und Regeln: Logik korrigiert\n\nZwei Korrekturen betreffen den Rule-Builder: Line-Item-Bedingungen werten wieder Artikel aller Typen aus (nicht nur Produkte), und Items ohne Streichpreis haben kein Preisverhältnis mehr. Wer mit der Bedingung 'ist gleich 0' gezielt Artikel ohne Streichpreis angesprochen hat, muss künftig 'ist leer' verwenden.\n\n## Neue Features\n\nDigitale Produkte können jetzt ohne hochgeladene Dateien angelegt werden, wenn die Dateizuweisung extern erfolgt - ein echter Gewinn für Shops, die Downloads über bestehende Systeme verwalten. Und Plugin-Entwickler können Systemkonfigurationen in Tabs gruppieren.\n\n## Ausblick auf 6.8\n\nDrei Verhaltensänderungen der kommenden Version lassen sich bereits einzeln testen: encodierte Media-URLs, proportionale Steuerberechnung im Warenkorb und die frühere Löschung des Warenkorbs nach Bestellerstellung.\n\n## Fazit\n\n6.7.16.0 ist ein empfehlenswertes Update: Es schließt Sicherheitslücken, korrigiert Regressionsverhalten aus 6.7.14/15 und erleichtert die Theme-Pflege. Nach dem Update sollten Rabatt- und Versandregeln kurz getestet werden.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.16.0*"
+    }
+  }
+}

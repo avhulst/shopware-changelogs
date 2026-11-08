@@ -1,0 +1,13 @@
+{
+  "updatedAt": "2026-11-08",
+  "entries": [
+    {
+      "version": "6.7.16.0",
+      "releasedAt": "2026-11-02",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Critical Fixes (Theme-Vererbung, CSP, Währung, Rule-Builder), Features (digitale Produkte extern, Konfigurationstabs)",
+      "file": "data/2026-11-02-v6.7.16.0.json"
+    }
+  ]
+}
