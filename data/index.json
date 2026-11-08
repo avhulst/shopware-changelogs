@@ -8,6 +8,14 @@
       "type": "patch",
       "kurztitel": "Critical Fixes (Theme-Vererbung, CSP, Währung, Rule-Builder), Features (digitale Produkte extern, Konfigurationstabs)",
       "file": "data/2026-11-02-v6.7.16.0.json"
+    },
+    {
+      "version": "6.7.15.0",
+      "releasedAt": "2026-10-01",
+      "checkedAt": "2026-11-08",
+      "type": "patch",
+      "kurztitel": "Document Generation v2 (experimentell), OAuth-Browser-Login für CLI-Tools, MCP-Toolset-Auswahl, Admin-UI-Rework",
+      "file": "data/2026-10-01-v6.7.15.0.json"
     }
   ]
 }

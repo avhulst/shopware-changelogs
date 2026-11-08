@@ -1,0 +1,131 @@
+{
+  "version": "6.7.15.0",
+  "releasedAt": "2026-10-01",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.15.0"
+    },
+    {
+      "name": "RELEASE_INFO-6.7.md (Abschnitt 6.7.15.0)",
+      "url": "https://github.com/shopware/shopware/blob/v6.7.15.0/RELEASE_INFO-6.7.md#67150",
+      "note": "Vertiefte Release-Info pro Release; Abschnitt als Original unter release-info/ archiviert."
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "releaseInfo": {
+    "file": "release-info/2026-10-01-v6.7.15.0.md",
+    "bereiche": [
+      "Features",
+      "Core",
+      "API",
+      "Administration",
+      "Storefront",
+      "Hosting & Configuration",
+      "App System"
+    ],
+    "einzelnderungen": 74
+  },
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MySQL 9.7",
+      "MariaDB 11",
+      "MariaDB 12"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [],
+    "features": [
+      {
+        "title": "Document Generation v2 (experimentell)",
+        "summary": "Neue, opt-in-Implementierung der Dokumentenerstellung (Feature-Flag DOCUMENT_GENERATION_REWORK). Ein Dokumenttyp erzeugt mehrere Formate in einem Aufruf: HTML, PDF, ZUGFeRD XML und PDF mit eingebettetem ZUGFeRD XML; gemeinsame Dokumentnummer, separate Dateien. ZUGFeRD ist kein eigener Dokumenttyp mehr, sondern ein Format von Rechnung, Storno und Gutschrift. Legacy-Pipeline: Deprecated mit 6.8, entfernt mit 6.9."
+      },
+      {
+        "title": "Browser-Login für CLI-Tools und öffentliche OAuth-Clients",
+        "summary": "Admin-API unterstützt OAuth 2.0 Authorization Code Grant mit PKCE. Nutzer melden sich im Browser an und genehmigen den Zugriff; Client erhält Tokens mit den Rechten des Nutzers, ohne Passwort- oder Integration-Secret-Speicherung. shopware-cli wird mitgeliefert."
+      },
+      {
+        "title": "MCP: Toolset-Auswahl zur Verbindungszeit",
+        "summary": "MCP-Toolsets können per URL-Parameter (?toolsets=order,media) benannt werden; die Tools werden direkt beim ersten tools/list advertised."
+      },
+      {
+        "title": "Admin-UI-Shell-Rework (Sidebar, Topbar, Smart Bar)",
+        "summary": "Überarbeitete Admin-Shell; entfernte und umstrukturierte Twig-Blöcke in sw-page.html.twig - Plugins mit Admin-Overrides prüfen."
+      }
+    ],
+    "core": [
+      "Neue Business-Events document.generation.completed und document.generation.deleted (auch als Flow-Builder-Trigger, für Legacy- und V2-Pipeline).",
+      "Neues Attribut #[ExperimentalReplacement] statt vorzeitiger @deprecated-Markierungen.",
+      "ProductConfiguratorLoader::loadFromCombinations() fuer eigene Kombinationsergebnisse.",
+      "sw-include-seo-urls jetzt Teil von Vary und HTTP-Cache-Key; No-Vary-Search-Header auf cachebaren Antworten.",
+      "CorsHeaderProviderInterface: Erweiterungen koennen CORS-Header-Listen anpassen.",
+      "MCP-Server sind jetzt deklarativ registrierbar.",
+      "Shopware Services versöhnen ihren Zustand taeglich (services.install-Task).",
+      "Primary/Replica-Verbindungen wechseln zwischen Requests zurueck aufs Replica."
+    ]
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.15.0 für Entwickler",
+      "punkte": [
+        "Document Generation v2 (aus RELEASE_INFO): Opt-in via DOCUMENT_GENERATION_REWORK; neue Admin-API-Routen /api/_action/order/document-v2/create, /upload, /preview, /download/{format}, /download-archive, /available-types ( unabhaengig vom Flag verfuegbar).",
+        "DocGen-v2-Extension-Punkte (aus RELEASE_INFO): Plugins registrieren Typen, Data Provider und Renderer als getaggte Services (shopware.document_v2.type/provider/renderer); Apps registrieren Dokumenttypen im <documents>-Manifest-Block plus document-generation App-Script-Hook.",
+        "Zeitplan DocGen (aus RELEASE_INFO): 6.7 opt-in, 6.8 Default (opt-out), 6.9 Entfernung der Legacy-Pipeline und des Flags; Migration in UPGRADE-6.9.md. Legacy-Events und document.renderer-Tags werden von v2 nicht aufgerufen.",
+        "Neue Events document.generation.completed (DocumentGeneratedEvent) und document.generation.deleted (DocumentDeletedEvent), als Flow-Builder-Trigger nutzbar.",
+        "OAuth (aus RELEASE_INFO): Authorization Code Grant mit PKCE am Admin-API-Autorisierungsserver; ApiClient akzeptiert $redirectUris/$grantTypes und supportsGrantType(); oeffentliche Clients nur authorization_code und refresh_token.",
+        "MCP (aus RELEASE_INFO): Toolsets per URL-Parameter (?toolsets=...) zur Verbindungszeit waehlbar; MCP-Server deklarativ registrierbar.",
+        "#[ExperimentalReplacement] ersetzt vorzeitige @deprecated-Markierungen fuer Klassen mit experimentellem Ersatz.",
+        "Caching (aus RELEASE_INFO): sw-include-seo-urls in Vary/Cache-Key aufgenommen; No-Vary-Search-Header auf cachebaren Antworten; eigene Cache-Keys um den Header ergaenzen.",
+        "Admin-UI-Shell-Rework: entfernte Twig-Bloecke, umstrukturierte Bloecke in sw-page.html.twig; Plugins mit Admin-Twig-Overrides pruefen.",
+        "Snippets/Themes (aus RELEASE_INFO): Themes erben Snippets aus jedem Theme in configInheritance; statische Theme-Kompilierung ohne Datenbank moeglich.",
+        "Media (aus RELEASE_INFO): Timeouts fuer Remote-Media-Requests konfigurierbar; MailService rendert Mails mit den Snippets ihres Sales Channel."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.15.0 für Projektmanager",
+      "punkte": [
+        "Feature-reiches Patch-Release ohne kritische Fixes-Schwerpunkt: Document Generation v2 (experimentell), Browser-Login fuer CLI-Tools, Admin-UI-Shell-Rework.",
+        "E-Rechnung: ZUGFeRD als Format direkt aus dem Dokumentengenerator - Rechnungsprozesse kuenftig ohne Zusatz-Plugins ZUGFeRD-faehig; relevant fuer Kunden mit E-Rechnungs-Pflicht.",
+        "Dokumenten-Migration einplanen: 6.7 opt-in, 6.8 Default, 6.9 Entfernung der Legacy-Pipeline; Firmen-/Absenderdaten wandern in Grunddaten (pro Sales Channel, ohne Migration).",
+        "Admin-UI-Rework: Plugins mit Admin-Anpassungen (Twig-Overrides) auf Kompatibilitaet pruefen - Update-Aufwand daher mittel.",
+        "Viele Stabilitaetskorrekturen: Services-Reconcile taeglich, deterministische State-Machine-Transitions, doppelte Bestellung eines bestellten Warenkorbs wird verhindert, Headless-Sitemap-Generierung."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.15.0 für den Vertrieb",
+      "punkte": [
+        "Dokumente der naechsten Generation: ein Generierungslauf erzeugt PDF, HTML und ZUGFeRD (E-Rechnung) gleichzeitig - Effizienzargument fuer Kunden mit Rechnungsautomatisierung.",
+        "ZUGFeRD direkt aus dem Kern: keine Zusatzloesung noetig - Ansprechpartner fuer Kunden, die E-Rechnungs-Pflichten umsetzen muessen.",
+        "Modernes Login fuer Tools: CLI-Anwendungen melden sich sicher per Browser-OAuth an - kein Passwort, kein Secret im Tool.",
+        "Frischere Administration: ueberarbeitete Shell (Sidebar, Topbar, Smart Bar) - bessere Bedienbarkeit im Alltag.",
+        "GARAN-Garantieetiketten besser in Bestaetigungsmails integriert (korrekte Groesse, Inline-PNG)."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.15.0 veröffentlicht* (01.10.2026)",
+      "text": "*Shopware 6.7.15.0 ist da* :tada:\n\n:sparkles: Features:\n• Document Generation v2 (experimentell, Feature-Flag) - HTML, PDF und ZUGFeRD aus einem Generator\n• Browser-Login (OAuth PKCE) für CLI-Tools\n• MCP: Toolsets direkt per URL wählbar\n• Admin-UI-Shell-Rework (Sidebar, Topbar, Smart Bar)\n\n:warning: Für Projekte: Plugins mit Admin-Twig-Overrides prüfen; DocGen-v2-Zeitplan: 6.8 Default, 6.9 Legacy-Entfernung\n\n:books: Details: <https://github.com/shopware/shopware/releases/tag/v6.7.15.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.15.0/RELEASE_INFO-6.7.md#67150|Release Info>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.15.0 veröffentlicht",
+      "text": "**Shopware 6.7.15.0 veröffentlicht** (01.10.2026)\n\n**Features**\n- Document Generation v2 (experimentell): ein Dokumenttyp erzeugt HTML, PDF, ZUGFeRD XML und PDF+ZUGFeRD in einem Aufruf; ZUGFeRD ist jetzt Format der Rechnung statt eigener Dokumenttyp\n- Browser-Login für CLI-Tools und öffentliche OAuth-Clients (Authorization Code Grant mit PKCE)\n- MCP: Toolset-Auswahl zur Verbindungszeit (?toolsets=...)\n- Admin-UI-Shell-Rework (Sidebar, Topbar, Smart Bar)\n- Neue Dokumenten-Events document.generation.completed/deleted (auch im Flow Builder)\n\n**Für Projekte**\n- Plugins mit Admin-Twig-Overrides wegen UI-Rework prüfen\n- DocGen-v2-Zeitplan: 6.7 opt-in, 6.8 Default, 6.9 Legacy-Entfernung\n- E-Rechnungs-Pflicht: ZUGFeRD direkt aus dem Kern, ohne Zusatz-Plugin\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.15.0\nRelease Info: https://github.com/shopware/shopware/blob/v6.7.15.0/RELEASE_INFO-6.7.md#67150"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.15.0: Dokumente der nächsten Generation",
+      "text": "# Shopware 6.7.15.0: Dokumente der nächsten Generation\n\nShopware hat Version 6.7.15.0 veröffentlicht. Das Besondere an diesem Patch-Release: Es bringt gleich drei zukunftsweisende Neuerungen - eine neue Dokumentengenerierung, einen modernen Login für CLI-Tools und ein durchgreifendes Admin-UI-Refresh.\n\n## Document Generation v2: Ein Generator, alle Formate\n\nDie Dokumentenerstellung wird komplett neu gebaut - ab sofort experimentell per Feature-Flag aktivierbar. Der Kerngedanke: Ein Dokumenttyp erzeugt alle Formate in einem einzigen Aufruf, darunter HTML, PDF, ZUGFeRD XML und PDF mit eingebettetem ZUGFeRD XML. Alle Formate teilen sich eine Dokumentnummer und werden als getrennte Dateien abgelegt. ZUGFeRD ist damit kein eigener Dokumenttyp mehr, sondern ein Format der Rechnung, Stornorechnung und Gutschrift - für Händler mit E-Rechnungs-Pflicht ein direkter Weg zur Automatisierung ohne Zusatz-Plugins.\n\nDer Zeitplan ist gesetzt: 6.7 ist Opt-in, mit 6.8 wird v2 zum Standard, mit 6.9 verschwindet die Legacy-Pipeline. Wer eigene Dokumenttypen oder Templates pflegt, sollte die neuen Extension-Punkte frühzeitig testen.\n\n## Browser-Login für CLI-Tools\n\nDie Admin-API unterstützt jetzt den OAuth 2.0 Authorization Code Grant mit PKCE. CLI-Tools und native Apps melden sich im Browser an, der Nutzer genehmigt den Zugriff - ohne gespeicherte Passwörter oder Integration-Secrets. Shopware liefert dafür den shopware-CLI-Client mit.\n\n## Frisches Admin-Interface\n\nDie Admin-Shell wurde überarbeitet: neue Sidebar, neue Topbar, neue Smart Bar. Für Plugin-Entwickler relevant: einige Twig-Blöcke wurden entfernt oder umstrukturiert - Admin-Overrides sollten geprüft werden.\n\n## Weitere Highlights\n\n- MCP-Toolsets lassen sich direkt per URL-Parameter wählen - praktisch für KI-Agenten.\n- Neue Dokumenten-Events (document.generation.completed, document.generation.deleted) auch als Flow-Builder-Trigger.\n- Zahlreiche Stabilitätsfixes, darunter deterministische State-Machine-Übergänge und der Schutz vor Doppelbestellungen.\n\n## Fazit\n\n6.7.15.0 ist ein empfehlenswertes Update mit echtem Mehrwert: Wer Rechnungen automatisch erzeugt, sollte Document Generation v2 jetzt evaluieren - mit 6.8 wird er ohnehin zum Standard.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.15.0*\n*Release Info: https://github.com/shopware/shopware/blob/v6.7.15.0/RELEASE_INFO-6.7.md#67150*"
+    }
+  }
+}
