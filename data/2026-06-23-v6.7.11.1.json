@@ -1,0 +1,85 @@
+{
+  "version": "6.7.11.1",
+  "releasedAt": "2026-06-23",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.11.1"
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "MCP-Authentifizierung: Abhängigkeit auf ClientRepositoryInterface korrigiert",
+        "summary": "McpAuthenticationListener hängt korrekt von ClientRepositoryInterface ab (Backport in die 6.7.11.x-Linie)."
+      },
+      {
+        "title": "Import-Map-Generierung verbessert",
+        "summary": "Backport der verbesserten Import-Map-Generierung für die Administration."
+      },
+      {
+        "title": "Footer-Navigation berücksichtigt Kinder als Seiten-URLs",
+        "summary": "Unterseiten des Footer-Navigationsbaums werden als Page-URLs berücksichtigt."
+      }
+    ],
+    "features": [],
+    "core": []
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.11.1 für Entwickler",
+      "punkte": [
+        "Kleines Patch-Release (3 Backport-Fixes), kein eigener RELEASE_INFO-Abschnitt.",
+        "McpAuthenticationListener: Abhängigkeit auf ClientRepositoryInterface korrigiert - relevant, falls der experimentelle MCP-Server aus 6.7.11.0 genutzt wird.",
+        "Import-Map-Generierung der Administration verbessert.",
+        "Footer-Navigation: Kinder des Navigationsbaums werden als Page-URLs berücksichtigt (z.B. für Sitemaps/URL-Generierung)."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.11.1 für Projektmanager",
+      "punkte": [
+        "Reines Bugfix-Release eine Woche nach 6.7.11.0, primär Stabilität des experimentellen MCP-Auth-Listeners.",
+        "Kein besonderer Update-Aufwand; kann mit regulären Deployments mitgenommen werden."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.11.1 für den Vertrieb",
+      "punkte": [
+        "Wartungs-Release ohne vertriebsrelevante Features - Nachweis aktiver Pflege der 6.7.11er-Linie.",
+        "Sinnvoll als Argument für kurze Reaktionszeiten von Shopware auf Fehler (MCP-Fix nach einer Woche)."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.11.1 veröffentlicht* (23.06.2026)",
+      "text": "*Shopware 6.7.11.1* :wrench: kleines Bugfix-Release\n\n• MCP-Auth-Listener: Abhängigkeit auf ClientRepositoryInterface korrigiert\n• Import-Map-Generierung verbessert\n• Footer-Navigation: Kinder als Page-URLs berücksichtigt\n\n:books: <https://github.com/shopware/shopware/releases/tag/v6.7.11.1|Release Notes>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.11.1 veröffentlicht",
+      "text": "**Shopware 6.7.11.1 veröffentlicht** (23.06.2026)\n\n- MCP-Auth-Listener: Abhängigkeit auf ClientRepositoryInterface korrigiert\n- Import-Map-Generierung verbessert\n- Footer-Navigation: Kinder als Page-URLs berücksichtigt\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.11.1"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.11.1: Wartungs-Release",
+      "text": "# Shopware 6.7.11.1: Wartungs-Release\n\nEine Woche nach 6.7.11.0 liefert Shopware ein kleines Bugfix-Release nach. Drei Korrekturen sind enthalten: eine Abhängigkeitskorrektur am MCP-Authentifizierungs-Listener, eine verbesserte Import-Map-Generierung in der Administration und die Berücksichtigung von Unterseiten der Footer-Navigation als Page-URLs.\n\nKein Handlungsbedarf über das reguläre Update hinaus - für Shops, die den experimentellen MCP-Server testen, ist der Auth-Fix allerdings empfehlenswert.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.11.1*"
+    }
+  }
+}
