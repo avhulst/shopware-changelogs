@@ -1,24 +1,40 @@
-# React-App: Shopware Changelog-Suche (hostbare Variante)
+# Shopware Changelog-App
 
-Eigenständige, hostbare App (`index.html`). Sie lädt ihre Daten **live** per GitHub-API aus diesem Repo: `data/index.json` und die dort referenzierten Einträge. Kein Datenpflege-Aufwand in der App selbst - der Canvas-App-Datenbestand muss nicht mehr aktualisiert werden.
+Such-App für die täglich geprüften Shopware-Changelogs (Entwickler-, Projektmanager- und Vertriebs-Sicht inkl. Slack-/Teams-/Blog-Texten). Die Daten werden **live aus diesem Repo** geladen (GitHub Contents API) — neue Releases erscheinen automatisch, ohne dass die App angepasst werden muss.
 
-## Lokal testen
+## Varianten
 
-Einfach `app/index.html` im Browser öffnen. Da das Repo privat ist, wird ein GitHub-Token benötigt (Status 404 ohne Token): bei einem Ladefehler erscheint ein Token-Feld. Der Token wird nur im `localStorage` des Browsers gespeichert.
+### Variante A — Single-File-App (`app/index.html`) · empfohlen zum schnellen Nutzen
 
-Alternative per URL: `index.html?token=<TOKEN>` (Vorsicht: landet in Logs/History - das Eingabefeld ist vorzuziehen).
+Einfach `app/index.html` herunterladen und im Browser öffnen (Doppelklick genügt).
 
-## Token-Anforderungen
+- Reagiert auf Datei-Öffnen via `file://`, kein Build, kein npm, kein Server nötig.
+- React wird per CDN (unpkg) geladen → Internetverbindung erforderlich.
+- **v1.2:** komplett ohne Babel/JSX (reines `React.createElement`). Behebt den Fehler `Cannot use import statement outside a module`, der durch Babel standalone in der Datei-os-Version auftrat.
 
-- Fine-grained Personal Access Token, nur Leserecht (Contents: Read) auf `avhulst/shopware-changelogs`.
-- Niemals committen oder im Klartext teilen.
+### Variante B — Vite-Projekt (`app/vite/`) · für echtes Hosting
 
-## Hosting
+Vollwertiges React-Quellprojekt für einen Produktions-Build:
 
-- **GitHub Pages** funktioniert nur bei öffentlichen Repos (private Pages erfordern einen kostenpflichtigen Plan). Wird das Repo auf Public gestellt, reicht `index.html` ohne Token.
-- Alternativ: beliebiges statisches Hosting (Netlify, Vercel, eigener Webserver); die App braucht keine Build-Pipeline.
+```bash
+cd app/vite
+npm install
+npm run build      # erzeugt dist/
+npm run preview    # lokaler Test
+```
 
-## Struktur
+Das `dist/`-Verzeichnis ist komplett statisch (React wird mitgebündelt, kein CDN nötig) und kann auf jeden Webserver, Netlify, Vercel etc. gelegt werden. `base: "./"` im `vite.config.js` macht den Build pfadrelativ, er funktioniert also auch in Subpfaden.
 
-- `app/index.html` - komplette App (React via CDN, Babel Standalone), Styling inline, keine weiteren Dateien nötig.
-- Die Persona- und Kanal-Ansichten entsprechen dem Datenmodell aus `data/*.json` (personas.punkte, channels.slack/teams/blog.text).
+Hinweis: ES-Module funktionieren nicht via `file://` — die gebaute Vite-Variante läuft nur über echtes Hosting (http/https). Für „einfach öffnen“ Variante A nehmen.
+
+## GitHub-Token (weil das Repo privat ist)
+
+Die App ruft `https://api.github.com/repos/avhulst/shopware-changelogs/contents/...` ab. Bei privatem Repo braucht der Browser einen **fine-grained GitHub-Token** mit reinem Leserecht (Contents: Read-only) auf dieses Repo:
+
+- Token-Eingabefeld erscheint in der App automatisch, wenn der Abruf mit 404 fehlschlägt.
+- Alternativ: Token einmalig per URL übergeben: `index.html?token=DEIN_TOKEN` (wird dann in `localStorage` als `ghToken` gehalten) oder direkt in den Browser-DevTools setzen: `localStorage.setItem("ghToken","…")`.
+- Der Token verlässt den Browser nicht — er wird nur für die GitHub-API-Anfragen genutzt.
+
+## GitHub Pages
+
+Funktioniert nur bei **öffentlichen** Repos kostenlos. Für private Repos ist Pages ein kostenpflichtiges Feature — solange das Repo privat bleibt, `dist/` (Variante B) bzw. `index.html` (Variante A) auf einem anderen Weg hosten oder lokal nutzen.

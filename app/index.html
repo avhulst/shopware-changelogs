@@ -1,217 +1,236 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Shopware Changelog-Suche (Trassd)</title>
-<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
 <style>
-  :root { color-scheme: light; }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8fafc; color: #0f172a; }
-  .wrap { max-width: 900px; margin: 0 auto; padding: 24px; }
-  h1 { font-size: 22px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; background: #10b981; display: inline-block; }
-  .sub { color: #64748b; font-size: 13px; margin-bottom: 20px; }
-  .search { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 14px; margin-bottom: 12px; background: #fff; }
-  .search:focus { outline: 2px solid #10b981; border-color: transparent; }
-  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-  .pill { border: 1px solid #cbd5e1; background: #fff; border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 500; cursor: pointer; color: #334155; }
-  .pill.active { background: #059669; color: #fff; border-color: #059669; }
-  .pill .date { opacity: .7; font-weight: 400; margin-left: 6px; font-size: 11px; }
-  .pill .count { margin-left: 6px; background: #d1fae5; color: #065f46; border-radius: 4px; padding: 0 4px; font-size: 11px; }
-  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
-  .card h2 { margin: 0; font-size: 17px; display: inline; }
-  .badge { display: inline-block; background: #d1fae5; color: #065f46; border-radius: 999px; font-size: 11px; padding: 2px 8px; margin-left: 8px; vertical-align: middle; }
-  .meta { color: #64748b; font-size: 13px; }
-  .kurz { font-size: 14px; color: #475569; margin: 6px 0; }
-  a { color: #047857; }
-  .tabs { display: flex; border-bottom: 1px solid #e2e8f0; background: #fff; border-radius: 12px 12px 0 0; overflow: hidden; }
-  .tab { padding: 10px 16px; font-size: 14px; font-weight: 500; border: none; border-bottom: 2px solid transparent; background: none; cursor: pointer; color: #64748b; }
-  .tab.active { border-color: #059669; color: #047857; background: #ecfdf5; }
-  .tab.activeDark { border-color: #0f172a; color: #0f172a; background: #f8fafc; }
-  .panel { background: #fff; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px; margin-bottom: 16px; }
-  ul.punkte { list-style: none; margin: 0; padding: 18px; }
-  ul.punkte li { font-size: 14px; line-height: 1.6; margin-bottom: 8px; padding-left: 16px; position: relative; }
-  ul.punkte li::before { content: "\2022"; color: #059669; font-weight: bold; position: absolute; left: 0; }
-  pre.kanal { padding: 18px; font-size: 12px; white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #334155; max-height: 320px; overflow: auto; margin: 0; }
-  .status { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 16px; font-size: 14px; }
-  .error { color: #b91c1c; }
-  input.token { padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; width: 260px; }
-  footer { color: #94a3b8; font-size: 12px; margin-top: 20px; }
-  .empty { color: #64748b; font-size: 14px; }
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8fafc; color: #0f172a; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 24px; }
+h1 { font-size: 22px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: #10b981; display: inline-block; }
+.sub { color: #64748b; font-size: 13px; margin-bottom: 20px; }
+.search { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 14px; margin-bottom: 12px; background: #fff; }
+.search:focus { outline: 2px solid #10b981; border-color: transparent; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.pill { border: 1px solid #cbd5e1; background: #fff; border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 500; cursor: pointer; color: #334155; }
+.pill.active { background: #059669; color: #fff; border-color: #059669; }
+.pill .date { opacity: .7; font-weight: 400; margin-left: 6px; font-size: 11px; }
+.pill .count { margin-left: 6px; background: #d1fae5; color: #065f46; border-radius: 4px; padding: 0 4px; font-size: 11px; }
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+.card h2 { margin: 0; font-size: 17px; display: inline; }
+.badge { display: inline-block; background: #d1fae5; color: #065f46; border-radius: 999px; font-size: 11px; padding: 2px 8px; margin-left: 8px; vertical-align: middle; }
+.badge.security { background: #fee2e2; color: #991b1b; }
+.meta { color: #64748b; font-size: 13px; }
+.kurz { font-size: 14px; color: #475569; margin: 6px 0; }
+a { color: #047857; }
+.tabs { display: flex; border-bottom: 1px solid #e2e8f0; background: #fff; border-radius: 12px 12px 0 0; overflow: hidden; }
+.tab { padding: 10px 16px; font-size: 14px; font-weight: 500; border: none; border-bottom: 2px solid transparent; background: none; cursor: pointer; color: #64748b; }
+.tab.active { border-color: #059669; color: #047857; background: #ecfdf5; }
+.tab.activeDark { border-color: #0f172a; color: #0f172a; background: #f8fafc; }
+.panel { background: #fff; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px; margin-bottom: 16px; }
+ul.punkte { list-style: none; margin: 0; padding: 18px; }
+ul.punkte li { font-size: 14px; line-height: 1.6; margin-bottom: 8px; padding-left: 16px; position: relative; }
+ul.punkte li::before { content: "\2022"; color: #059669; font-weight: bold; position: absolute; left: 0; }
+pre.kanal { padding: 18px; font-size: 12px; white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #334155; max-height: 320px; overflow: auto; margin: 0; }
+.status { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 16px; font-size: 14px; }
+.error { color: #b91c1c; }
+input.token { padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; width: 260px; }
+footer { color: #94a3b8; font-size: 12px; margin-top: 20px; }
+.empty { color: #64748b; font-size: 14px; }
 </style>
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" data-presets="react">
-const REPO_OWNER = "avhulst";
-const REPO_NAME = "shopware-changelogs";
-const BRANCH = "main";
+<script>
+"use strict";
+// App v1.2: ohne Babel/JSX, reines React.createElement — laeuft direkt vom Dateisystem.
+var h = React.createElement;
+var REPO_OWNER = "avhulst", REPO_NAME = "shopware-changelogs", BRANCH = "main";
+var PERSONAS = [
+  { key: "entwickler", label: "Entwickler" },
+  { key: "projektmanager", label: "Projekt-Manager" },
+  { key: "vertrieb", label: "Vertrieb" }
+];
+var CHANNELS = [
+  { key: "slack", label: "Slack" },
+  { key: "teams", label: "Teams" },
+  { key: "blog", label: "Blog" }
+];
 
 function getToken() {
-  return localStorage.getItem("ghToken") || new URLSearchParams(location.search).get("token") || "";
+  try {
+    return localStorage.getItem("ghToken") ||
+      new URLSearchParams(location.search).get("token") || "";
+  } catch (e) { return ""; }
 }
 
-async function fetchJson(path) {
-  const url = "https://api.github.com/repos/" + REPO_OWNER + "/" + REPO_NAME + "/contents/" + encodeURIComponent(path).replace(/%2F/g, "/") + "?ref=" + BRANCH;
-  const headers = { Accept: "application/vnd.github.raw+json" };
-  const t = getToken();
+function fetchJson(path) {
+  var url = "https://api.github.com/repos/" + REPO_OWNER + "/" + REPO_NAME +
+    "/contents/" + encodeURIComponent(path).replace(/%2F/g, "/") + "?ref=" + BRANCH;
+  var headers = { Accept: "application/vnd.github.raw+json" };
+  var t = getToken();
   if (t) headers.Authorization = "Bearer " + t;
-  const res = await fetch(url, { headers });
-  if (!res.ok) throw new Error("GitHub API " + res.status + " (" + path + ")");
-  return res.json();
+  return fetch(url, { headers: headers }).then(function (res) {
+    if (!res.ok) throw new Error("GitHub API " + res.status + " (" + path + ")");
+    return res.json();
+  });
 }
 
-const PERSONAS = [ { key: "entwickler", label: "Entwickler" }, { key: "projektmanager", label: "Projekt-Manager" }, { key: "vertrieb", label: "Vertrieb" } ];
-const CHANNELS = [ { key: "slack", label: "Slack" }, { key: "teams", label: "Teams" }, { key: "blog", label: "Blog" } ];
-
-function App() {
-  const [entries, setEntries] = React.useState(null);
-  const [error, setError] = React.useState(null);
-  const [query, setQuery] = React.useState("");
-  const [persona, setPersona] = React.useState("entwickler");
-  const [channel, setChannel] = React.useState("slack");
-  const [selected, setSelected] = React.useState(null);
-  const [tokenInput, setTokenInput] = React.useState("");
-
-  const load = React.useCallback(async () => {
-    try {
-      const idx = await fetchJson("data/index.json");
-      const list = [];
-      for (const e of idx.entries) {
-        list.push(await fetchJson(e.file));
-      }
-      list.sort((a, b) => (a.version < b.version ? 1 : -1));
-      setEntries(list);
-      setError(null);
-      setSelected(list[0] ? list[0].version : null);
-    } catch (err) {
-      setError(err.message);
+function entryHay(e, withChannels) {
+  var parts = [e.version, e.kurztitel, e.type], i, c, pv, cv;
+  var hf = (e.highlights || {});
+  for (i = 0; i < (hf.criticalFixes || []).length; i++) {
+    c = hf.criticalFixes[i]; parts.push(c.title || "", c.summary || "");
+  }
+  for (i = 0; i < (hf.features || []).length; i++) {
+    c = hf.features[i]; parts.push(c.title || "", c.summary || "");
+  }
+  if (hf.core) parts.push.apply(parts, hf.core);
+  for (i = 0; i < PERSONAS.length; i++) {
+    pv = (e.personas || {})[PERSONAS[i].key];
+    if (pv) parts.push.apply(parts, pv.punkte || pv);
+  }
+  if (withChannels) {
+    for (i = 0; i < CHANNELS.length; i++) {
+      cv = (e.channels || {})[CHANNELS[i].key];
+      if (cv) parts.push(cv.titel || "", cv.text || "");
     }
+  }
+  return parts.join(" ").toLowerCase();
+}
+
+function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+var App = function () {
+  var st = React.useState, cb = React.useCallback, memo = React.useMemo, eff = React.useEffect;
+  var entries = st(null), setEntries = entries[1]; entries = entries[0];
+  var error = st(null), setError = error[1]; error = error[0];
+  var query = st(""), setQuery = query[1]; query = query[0];
+  var persona = st("entwickler"), setPersona = persona[1]; persona = persona[0];
+  var channel = st("slack"), setChannel = channel[1]; channel = channel[0];
+  var selected = st(null), setSelected = selected[1]; selected = selected[0];
+  var tokenInput = st(""), setTokenInput = tokenInput[1]; tokenInput = tokenInput[0];
+
+  var load = cb(function () {
+    return fetchJson("data/index.json").then(function (idx) {
+      var kurz = {};
+      idx.entries.forEach(function (e) { kurz[e.version] = e.kurztitel || ""; });
+      return Promise.all(idx.entries.map(function (e) { return fetchJson(e.file); }));
+    }).then(function (list) {
+      list.forEach(function (e) { if (!e.kurztitel && kurz[e.version]) e.kurztitel = kurz[e.version]; });
+      list.sort(function (a, b) {
+        if (a.releasedAt !== b.releasedAt) return a.releasedAt < b.releasedAt ? 1 : -1;
+        return a.version < b.version ? 1 : -1;
+      });
+      setEntries(list); setError(null);
+      setSelected(list.length ? list[0].version : null);
+    }).catch(function (err) { setError(String(err && err.message || err)); });
   }, []);
 
-  React.useEffect(() => { load(); }, [load]);
+  eff(function () { load(); }, [load]);
 
-  const saveToken = () => {
-    if (tokenInput.trim()) localStorage.setItem("ghToken", tokenInput.trim());
-    else localStorage.removeItem("ghToken");
+  function saveToken() {
+    var v = tokenInput.trim();
+    try {
+      if (v) localStorage.setItem("ghToken", v);
+      else localStorage.removeItem("ghToken");
+    } catch (e) {}
     setTokenInput("");
     load();
-  };
+  }
 
-  const filtered = React.useMemo(() => {
-    if (!entries) return [];
-    const q = query.trim().toLowerCase();
-    if (!q) return entries;
-    return entries.filter((e) => {
-      const hay = [ e.version, e.kurztitel, e.type,
-        ...(e.highlights ? (e.highlights.criticalFixes || []).flatMap((c) => [c.title || "", c.summary || ""]) : []),
-        ...(e.highlights ? (e.highlights.features || []).flatMap((c) => [c.title || "", c.summary || ""]) : []),
-        ...(e.highlights ? (e.highlights.core || []) : []),
-        ...PERSONAS.flatMap((p) => (e.personas && e.personas[p.key] ? e.personas[p.key].punkte || e.personas[p.key] : [])),
-      ].join(" ").toLowerCase();
-      return hay.includes(q);
-    });
-  }, [entries, query]);
+  var q = query.trim().toLowerCase();
+  var filtered = memo(function () {
+    return (entries || []).filter(function (e) { return !q || entryHay(e, true).indexOf(q) !== -1; });
+  }, [entries, q]);
 
-  const matchCount = (e, q) => {
-    if (!q.trim()) return 0;
-    const hay = [
-      ...(e.highlights ? (e.highlights.criticalFixes || []).flatMap((c) => [c.title || "", c.summary || ""]) : []),
-      ...(e.highlights ? (e.highlights.features || []).flatMap((c) => [c.title || "", c.summary || ""]) : []),
-      ...(e.highlights ? (e.highlights.core || []) : []),
-      ...PERSONAS.flatMap((p) => (e.personas && e.personas[p.key] ? e.personas[p.key].punkte || e.personas[p.key] : [])),
-    ].join(" ").toLowerCase();
-    const re = new RegExp(q.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
-    return (hay.match(re) || []).length;
-  };
+  var entry = memo(function () {
+    if (!entries) return null;
+    var i;
+    for (i = 0; i < entries.length; i++) if (entries[i].version === selected) return entries[i];
+    return filtered[0] || null;
+  }, [entries, selected, filtered]);
 
-  const entry = entries ? (entries.find((e) => e.version === selected) || filtered[0] || null) : null;
+  function matchCount(e) {
+    if (!q) return 0;
+    var m = entryHay(e, true).match(new RegExp(escapeRe(q), "gi"));
+    return m ? m.length : 0;
+  }
 
   if (error) {
-    return (
-      <div className="wrap">
-        <div className="status error">
-          <p><strong>Daten konnten nicht geladen werden:</strong> {error}</p>
-          <p>Das Repo ist privat. Bei Status 404: fehlender oder ungültiger GitHub-Token (fine-grained, nur Leserecht auf dieses Repo). Token wird nur lokal im Browser (localStorage) gespeichert, nie übertragen oder gespeichert auf dem Host.</p>
-          <input className="token" type="password" placeholder="GitHub-Token (read-only)" value={tokenInput} onChange={(ev) => setTokenInput(ev.target.value)} />
-          <button className="pill" style={{ marginLeft: 8 }} onClick={saveToken}>Speichern &amp; neu laden</button>
-        </div>
-      </div>
+    return h("div", { className: "wrap" },
+      h("div", { className: "status error" },
+        h("p", null, h("strong", null, "Daten konnten nicht geladen werden: "), " ", error),
+        h("p", null, "Das Repo ist privat. Bei Status 404: fehlender oder ungültiger GitHub-Token (fine-grained, nur Leserecht auf dieses Repo). Der Token wird nur lokal im Browser (localStorage) gespeichert."),
+        h("input", { className: "token", type: "password", placeholder: "GitHub-Token (read-only)", value: tokenInput, onChange: function (ev) { setTokenInput(ev.target.value); } }),
+        " ",
+        h("button", { className: "pill", onClick: saveToken }, "Speichern & neu laden")
+      )
     );
   }
 
-  if (!entries) return <div className="wrap"><div className="status">Lade Daten aus avhulst/shopware-changelogs …</div></div>;
+  if (!entries) return h("div", { className: "wrap" }, h("div", { className: "status" }, "Lade Daten aus " + REPO_OWNER + "/" + REPO_NAME + " …"));
 
-  const personaPunkte = (p) => {
-    if (!entry.personas) return [];
-    const pv = entry.personas[p];
-    if (!pv) return [];
-    return pv.punkte || pv || [];
-  };
+  var pv = entry && entry.personas && entry.personas[persona];
+  var punkte = pv ? (pv.punkte || pv) : [];
+  var cv = entry && entry.channels && entry.channels[channel];
 
-  return (
-    <div className="wrap">
-      <h1><span className="dot"></span>Shopware Changelog-Suche</h1>
-      <div className="sub">Trassd · {entries.length} {entries.length === 1 ? "Eintrag" : "Einträge"} · Datenbestand: {entries.map((e) => e.version).join(", ")}</div>
-
-      <input className="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Suchen, z.B. CSP, ZUGFeRD, DOCUMENT_GENERATION_REWORK, ProductBackInStockEvent …" />
-
-      <div className="pills">
-        {filtered.map((e) => (
-          <button key={e.version} className={"pill" + (entry && entry.version === e.version ? " active" : "")} onClick={() => setSelected(e.version)}>
-            v{e.version}<span className="date">{e.releasedAt}</span>
-            {query.trim() ? <span className="count">{matchCount(e, query)}</span> : null}
-          </button>
-        ))}
-        {filtered.length === 0 && <span className="empty">Kein Eintrag gefunden. Suchbegriff ändern.</span>}
-      </div>
-
-      {entry && (
-        <React.Fragment>
-          <div className="card">
-            <h2>Shopware {entry.version}</h2>
-            <span className={"badge" + (entry.type === "security" ? " security" : "")}>{entry.type}</span>
-            <div className="meta">veröffentlicht {entry.releasedAt} · geprüft {entry.checkedAt}</div>
-            <div className="kurz">{entry.kurztitel || (entry.sources && entry.sources[0] && "")}</div>
-            {(entry.sources || []).map((s, i) => (
-              <div key={i} style={{ fontSize: 13, marginTop: 2 }}><a href={s.url} target="_blank" rel="noreferrer">{s.name} ↗</a></div>
-            ))}
-          </div>
-
-          <div className="tabs">
-            {PERSONAS.map((p) => (
-              <button key={p.key} className={"tab" + (persona === p.key ? " active" : "")} onClick={() => setPersona(p.key)}>{p.label}</button>
-            ))}
-          </div>
-          <div className="panel">
-            <ul className="punkte">
-              {personaPunkte(persona).map((pkt, i) => (<li key={i}>{pkt}</li>))}
-            </ul>
-          </div>
-
-          <div className="tabs">
-            {CHANNELS.map((c) => (
-              <button key={c.key} className={"tab" + (channel === c.key ? " activeDark" : "")} onClick={() => setChannel(c.key)}>{c.label}</button>
-            ))}
-          </div>
-          <div className="panel">
-            <pre className="kanal">{entry.channels && entry.channels[channel] ? entry.channels[channel].text : ""}</pre>
-          </div>
-        </React.Fragment>
-      )}
-
-      <footer>
-        Quelle: github.com/{REPO_OWNER}/{REPO_NAME} (live) · Tägliche Prüfung um 08:00 (Europe/Berlin) · Token-Feld erscheint bei privatem Repo (Status 404)
-      </footer>
-    </div>
+  return h("div", { className: "wrap" },
+    h("h1", null, h("span", { className: "dot" }), "Shopware Changelog-Suche"),
+    h("div", { className: "sub" }, "Trassd · " + entries.length + " Einträge · Datenbestand: " + entries.map(function (e) { return e.version; }).join(", ")),
+    h("input", { className: "search", value: query, onChange: function (e) { setQuery(e.target.value); }, placeholder: "Suchen, z.B. CSP, ZUGFeRD, MCP, ProductBackInStockEvent …" }),
+    h("div", { className: "pills" },
+      filtered.map(function (e) {
+        return h("button", {
+          key: e.version,
+          className: "pill" + (entry && entry.version === e.version ? " active" : ""),
+          onClick: function () { setSelected(e.version); }
+        }, "v" + e.version,
+          h("span", { className: "date" }, e.releasedAt),
+          query.trim() ? h("span", { className: "count" }, matchCount(e)) : null
+        );
+      }),
+      filtered.length === 0 ? h("span", { className: "empty" }, "Kein Eintrag gefunden. Suchbegriff ändern.") : null
+    ),
+    entry ? [
+      h("div", { key: "card", className: "card" },
+        h("h2", null, "Shopware " + entry.version),
+        h("span", { className: "badge" + (entry.type === "security" ? " security" : "") },
+          entry.type === "security" ? "\uD83D\uDD12 security" : entry.type),
+        h("div", { className: "meta" }, "veröffentlicht " + entry.releasedAt + " · geprüft " + entry.checkedAt),
+        h("div", { className: "kurz" }, entry.kurztitel || ""),
+        (entry.sources || []).map(function (s, i) {
+          return h("div", { key: i, style: { fontSize: 13, marginTop: 2 } },
+            h("a", { href: s.url, target: "_blank", rel: "noreferrer" }, s.name + " ↗"));
+        })
+      ),
+      h("div", { key: "ptabs", className: "tabs" },
+        PERSONAS.map(function (p) {
+          return h("button", { key: p.key, className: "tab" + (persona === p.key ? " active" : ""), onClick: function () { setPersona(p.key); } }, p.label);
+        })
+      ),
+      h("div", { key: "ppanel", className: "panel" },
+        h("ul", { className: "punkte" }, punkte.map(function (pkt, i) { return h("li", { key: i }, pkt); }))
+      ),
+      h("div", { key: "ctabs", className: "tabs" },
+        CHANNELS.map(function (c) {
+          return h("button", { key: c.key, className: "tab" + (channel === c.key ? " activeDark" : ""), onClick: function () { setChannel(c.key); } }, c.label);
+        })
+      ),
+      h("div", { key: "cpanel", className: "panel" },
+        h("pre", { className: "kanal" }, cv ? cv.text : "")
+      )
+    ] : null,
+    h("footer", null, "Quelle: github.com/" + REPO_OWNER + "/" + REPO_NAME + " (live) · Tägliche Prüfung um 08:00 (Europe/Berlin) · Bei privatem Repo erscheint ein Token-Feld (Status 404)")
   );
-}
+};
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(h(App));
 </script>
 </body>
 </html>
