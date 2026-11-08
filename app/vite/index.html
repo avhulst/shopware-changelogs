@@ -4,9 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopware Changelog-Suche (Trassd)</title>
+    <script>
+      // Dark-Mode-Klasse vor dem Rendern setzen (verhindert Blitzlicht)
+      (function () {
+        try {
+          var s = localStorage.getItem("theme");
+          var d = s ? s === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (d) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" crossorigin src="/src/main.jsx"></script>
   </body>
 </html>
