@@ -3,16 +3,28 @@ import React from "react";
 
 const TabsContext = React.createContext(null);
 
+// Tabs (Wurzel): normaler Block-Container, Umschalt-Logik über Context
 export function Tabs({ value, onValueChange, className, ...props }) {
   return (
     <TabsContext.Provider value={{ value, onValueChange }}>
-      <div className={cn("inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground", className)} {...props} />
+      <div className={cn("", className)} {...props} />
     </TabsContext.Provider>
   );
 }
+
+// TabsList: die sichtbare Pill-Leiste
 export function TabsList({ className, ...props }) {
-  return <div className={cn("inline-flex h-7 items-center justify-center gap-0.5", className)} {...props} />;
+  return (
+    <div
+      className={cn(
+        "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
+        className
+      )}
+      {...props}
+    />
+  );
 }
+
 export function TabsTrigger({ value, className, ...props }) {
   const ctx = React.useContext(TabsContext);
   const active = ctx && ctx.value === value;
@@ -30,6 +42,7 @@ export function TabsTrigger({ value, className, ...props }) {
     />
   );
 }
+
 export function TabsContent({ value, className, ...props }) {
   const ctx = React.useContext(TabsContext);
   if (ctx && ctx.value !== value) return null;
