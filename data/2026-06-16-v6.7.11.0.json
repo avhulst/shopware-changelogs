@@ -1,0 +1,132 @@
+{
+  "version": "6.7.11.0",
+  "releasedAt": "2026-06-16",
+  "checkedAt": "2026-11-08",
+  "sources": [
+    {
+      "name": "GitHub Release",
+      "url": "https://github.com/shopware/shopware/releases/tag/v6.7.11.0"
+    },
+    {
+      "name": "RELEASE_INFO-6.7.md (Abschnitt 6.7.11.0)",
+      "url": "https://github.com/shopware/shopware/blob/v6.7.11.0/RELEASE_INFO-6.7.md#67110",
+      "note": "Vertiefte Release-Info pro Release; Abschnitt als Original unter release-info/ archiviert."
+    },
+    {
+      "name": "Changelog (changelog.shopware.com)",
+      "url": "https://changelog.shopware.com/en/release-notes-en",
+      "note": "Blockiert automatisierten Zugriff; primär über GitHub Releases beziehen."
+    }
+  ],
+  "releaseInfo": {
+    "file": "release-info/2026-06-16-v6.7.11.0.md",
+    "bereiche": [
+      "Features (MCP-Server experimentell)",
+      "API",
+      "Core",
+      "Administration",
+      "Storefront (neues Komponentensystem)",
+      "App System",
+      "Hosting & Configuration",
+      "Critical Fixes"
+    ],
+    "einzelnderungen": 32
+  },
+  "type": "patch",
+  "systemRequirements": {
+    "php": [
+      "8.2",
+      "8.4",
+      "8.5"
+    ],
+    "database": [
+      "MySQL 8",
+      "MariaDB 11"
+    ]
+  },
+  "highlights": {
+    "criticalFixes": [
+      {
+        "title": "Kurzzeitige Elasticsearch-Ausfälle brechen Bestellungen nicht mehr ab",
+        "summary": "Transport-Fehler beim Indexing (z.B. DNS, Timeout) werden bei SHOPWARE_ES_THROW_EXCEPTION=0 geloggt und übersprungen; die Bestellung wird regulär abgeschlossen."
+      }
+    ],
+    "features": [
+      {
+        "title": "Experimenteller MCP-Server für KI-Integration",
+        "summary": "AI-Clients (Claude Desktop, Cursor) können via /api/_mcp auf die Shopware-Instanz zugreifen: Tools, Prompts, Ressourcen; ACL-rechtig, Allowlists pro Integration, Flag MCP_SERVER."
+      },
+      {
+        "title": "Neues Storefront-Komponentensystem (Twig UX)",
+        "summary": "Wiederverwendbare Templates auf Basis von Twig UX Components inkl. SCSS/JS-Handling; Vite-basierter Dev-Server ersetzt watch:storefront."
+      },
+      {
+        "title": "7 neue Foreign-Key-Resolver für die Sync API",
+        "summary": "Entities referenzierbar über ISO-Code, Locale, technicalName, salutationKey, taxRate statt UUIDs."
+      }
+    ],
+    "core": [
+      "Mail-Vorlagen: neue Preview-/Send-Routen (simulate, preview, get-data-and-send, available-variables), sales-channel-aware Rendering.",
+      "State-Machine-Übergänge werden pro Entity gelockt (Race-Conditions vermieden).",
+      "Order-Deep-Link-Ablauf konfigurierbar; media:delete-unused kann technische Media-Zuordnungen ignorieren.",
+      "Backward-kompatible invalide Locales; Pseudo-Locales in translation:install; translation:list zeigt konfigurierte Übersetzungen.",
+      "Theme-Konfiguration als native CSS Custom Properties (var(--sw-...)); Einzeldatei-Referenzen in theme.json (@BundleName/Pfad).",
+      "Neues globales JS-Event-System (window.Shopware.on/emit); PluginManager.callPluginMethod().",
+      "Deprecation: RegisterScheduleTaskMessage; watch:storefront (zugunsten storefront:dev-server)."
+    ]
+  },
+  "personas": {
+    "entwickler": {
+      "titel": "Shopware 6.7.11.0 für Entwickler",
+      "punkte": [
+        "Experimenteller MCP-Server: Aktivierung über Feature-Flag MCP_SERVER, Endpunkt /api/_mcp (Streamable HTTP). Plugins registrieren Capabilities via Tags mcp.tool, mcp.prompt, mcp.resource; Apps über App-Manifest. CLI: debug:mcp listet alles auf. Auth via Admin-API-Integrations-Credentials (sw-access-key/sw-secret-access-key), ACL wird respektiert, Allowlists pro Integration konfigurierbar.",
+        "Neues Storefront-Komponentensystem auf Basis von Twig UX Components mit SCSS/JS-Support; Grundlage des künftigen Content-Systems, aber schon heute in bestehenden Templates nutzbar (Doku: developer.shopware.com, Storefront Components).",
+        "Neuer Vite-Dev-Server: composer storefront:dev-server (ohne Proxy, SCSS/JS-Hot-Reload); composer watch:storefront ist für die nächste Major-Version deprecated.",
+        "Theme-Konfiguration jetzt als native CSS Custom Properties verfügbar (var(--sw-color-brand-primary) usw.) - Schritt weg von PHP-SCSS-Kompilierung; theme.json unterstützt Einzeldatei-Referenzen (@MyTheme/app/storefront/src/scss/overrides.scss).",
+        "Sync API: 7 neue Foreign-Key-Resolver (currency.iso_code, locale.code, payment_method.technical_name, shipping_method.technical_name, document_type.technical_name, salutation.salutation_key, tax.tax_rate; bei tax_rate nur eindeutige Treffer).",
+        "Mail-Templating: neue Admin-API-Routen /api/_action/mail-template/simulate, /preview, /get-data-and-send, /available-variables; Preview sales-channel-aware mit Header/Footer; extensions-Bag im send-Payload (unbekannte Top-Level-Keys sind deprecated, entfallen in 6.8).",
+        "Core-Details (aus RELEASE_INFO): State-Machine-Übergänge pro Entity gelockt; Order-Deep-Link-Ablauf konfigurierbar; media:delete-unused ignoriert technische Zuordnungen optional; invalide Locales abwärtskompatibel; Plugin-Snippets werden nicht mehr still verworfen; installation order requirement-aware.",
+        "Storefront-JS: neues globales Event-System window.Shopware.on/emit (interceptable Events, z.B. Request-Parameter vor Versand ändern); PluginManager.callPluginMethod(pluginName, methodName, ...args).",
+        "Administration (aus RELEASE_INFO): Block-Renaming im CMS, Custom Fields respektieren Read-Only-Berechtigungen, sw-date-filter 'Letztes Quartal'-Fix, Meteor Component Library 4.28.6, Theme-Vererbung für Boolean-Felder gefixt.",
+        "Hosting (aus RELEASE_INFO): lokale Filesystem-Rechte-Enforcement abschaltbar; partielle Filesystem-Visibility-Overrides erhalten Adapter-Konfiguration.",
+        "Deprecations: RegisterScheduleTaskMessage, watch:storefront, unbekannte Top-Level-Keys im mail-template/send-Payload.",
+        "Critical Fix: Elasticsearch-Transport-Fehler beim Indexing werden gefangen (ElasticsearchHelper::allowIndexing); Bestellungsabschluss bleibt bei SHOPWARE_ES_THROW_EXCEPTION=0 stabil."
+      ]
+    },
+    "projektmanager": {
+      "titel": "Shopware 6.7.11.0 für Projektmanager",
+      "punkte": [
+        "Großes 6.7er-Release mit 32 dokumentierten Einzeländerungen: experimenteller MCP-Server (KI-Anbindung), neues Storefront-Komponentensystem, viele Core- und Admin-Verbesserungen.",
+        "Stabilität: Kurzzeitige Elasticsearch-/OpenSearch-Ausfälle brechen Bestellungen nicht mehr ab - Checkout-Resilienz steigt, weniger kritische Incidents.",
+        "Planung: Das neue Komponentensystem ist die Grundlage des kommenden Content-Systems - frühe Evaluierung lohnt sich für Theme-/Frontend-Roadmaps.",
+        "Update-Aufwand: moderat; Feature-Flag MCP_SERVER ist opt-in, Storefront-Änderungen (CSS Custom Properties, Dev-Server) sind abwärtskompatibel.",
+        "Test-Empfehlung: Checkout mit Elasticsearch-Umgebung, Mail-Versand (neue Routen), CMS-Blöcke nach Update prüfen.",
+        "KI-Strategie: MCP-Anbindung erlaubt ersten realen Test von AI-Clients (Claude Desktop, Cursor) gegen Shopware - relevant für die Agentur-Roadmap."
+      ]
+    },
+    "vertrieb": {
+      "titel": "Shopware 6.7.11.0 für den Vertrieb",
+      "punkte": [
+        "KI-fähig: Shopware bringt einen experimentellen MCP-Server mit - AI-Assistenten können direkt auf Kunden-Shops zugreifen. Modernitäts-Argument für Neukundengespräche.",
+        "Stabiler Checkout: Auch bei Such-Index-Störungen laufen Bestellungen weiter - Schutz gegen Umsatzverluste.",
+        "Effizientere Frontend-Entwicklung: neues Komponentensystem und Vite-Dev-Server senken den Aufwand für individuelle Themes - schnellere Projekte, bessere Margen.",
+        "B2B-/Pflege-Argument: Sync-API kann Entities über lesbare Schlüssel (ISO-Codes, technical names) statt UUIDs referenzieren - einfachere Integrationen mit ERP/PIM.",
+        "Zukunftssicher: Vorbereitung auf das neue Content-System - Kunden früh auf die 6.7er-Linie begleiten."
+      ]
+    }
+  },
+  "channels": {
+    "slack": {
+      "titel": "*Shopware 6.7.11.0 veröffentlicht* (16.06.2026)",
+      "text": "*Shopware 6.7.11.0 ist da* :tada:\n\n:sparkles: Highlights:\n• Experimenteller MCP-Server für KI-Clients (Flag MCP_SERVER, /api/_mcp)\n• Neues Storefront-Komponentensystem (Twig UX) + Vite-Dev-Server\n• 7 neue Foreign-Key-Resolver für die Sync API\n• Mail-Vorschau sales-channel-aware\n\n:kritisch: Critical Fix: Elasticsearch-Ausfälle brechen Bestellungen nicht mehr ab\n\n:books: Details: <https://github.com/shopware/shopware/releases/tag/v6.7.11.0|Release Notes> · <https://github.com/shopware/shopware/blob/v6.7.11.0/RELEASE_INFO-6.7.md#67110|Release Info>"
+    },
+    "teams": {
+      "titel": "Shopware 6.7.11.0 veröffentlicht",
+      "text": "**Shopware 6.7.11.0 veröffentlicht** (16.06.2026)\n\n**Features**\n- Experimenteller MCP-Server für KI-Integration (/api/_mcp, Feature-Flag)\n- Neues Storefront-Komponentensystem (Twig UX) + Vite-Dev-Server\n- 7 neue Foreign-Key-Resolver für die Sync API\n- Neue Mail-Template-Preview-/Send-Routen\n\n**Stabilität**\n- Elasticsearch-Ausfälle brechen Bestellungen nicht mehr ab\n\n**Für Projekte**\n- Komponentensystem = Grundlage des kommenden Content-Systems\n- watch:storefront deprecated -> storefront:dev-server verwenden\n\nDetails: https://github.com/shopware/shopware/releases/tag/v6.7.11.0\nRelease Info: https://github.com/shopware/shopware/blob/v6.7.11.0/RELEASE_INFO-6.7.md#67110"
+    },
+    "blog": {
+      "titel": "Shopware 6.7.11.0: MCP-Server, Komponentensystem und stabilere Bestellprozesse",
+      "text": "# Shopware 6.7.11.0: MCP-Server, Komponentensystem und stabilere Bestellprozesse\n\nShopware hat Version 6.7.11.0 veröffentlicht. Das Release bringt mit einem experimentellen MCP-Server und einem komplett neuen Storefront-Komponentensystem zwei strategische Neuerungen mit - plus über 30 dokumentierte Einzeländerungen.\n\n## KI-Anbindung: experimenteller MCP-Server\n\nShopware integriert erstmals einen MCP-Server (Model Context Protocol). AI-Clients wie Claude Desktop oder Cursor können damit über /api/_mcp direkt mit der Shopware-Instanz arbeiten: Entities verwalten, Konfiguration lesen, Caches steuern, Storefront-Produkte suchen. Alle Operationen respektieren ACL-Berechtigungen; pro Integration lassen sich Allowlists konfigurieren. Aktivierung über das Feature-Flag MCP_SERVER.\n\n## Neues Storefront-Komponentensystem\n\nAuf Basis von Twig UX Components führt Shopware ein Komponentensystem ein, das wiederverwendbare Templates mit SCSS- und JS-Handling erlaubt. Es ist die Grundlage des künftigen Content-Systems, kann aber schon heute in bestehenden Templates genutzt werden. Dazu passend: ein neuer Vite-basierter Dev-Server (composer storefront:dev-server), Theme-Konfiguration als native CSS Custom Properties und Einzeldatei-Referenzen in der theme.json.\n\n## API und Core\n\nDie Sync API erhält sieben neue Foreign-Key-Resolver - Entities lassen sich über ISO-Codes, Locales oder Technical Names statt UUIDs referenzieren. Mail-Templates bekommen Preview- und Send-Routen mit sales-channel-aware Rendering. Im Core werden State-Machine-Übergänge pro Entity gelockt und der Order-Deep-Link-Ablauf konfigurierbar.\n\n## Stabilerer Checkout\n\nKurzzeitige Elasticsearch- oder OpenSearch-Ausfälle brechen Bestellprozesse nicht mehr ab: Transport-Fehler beim Indexing werden abgefangen, die Bestellung wird regulär abgeschlossen.\n\n## Fazit\n\n6.7.11.0 ist ein Update mit Weitblick: KI-Integration und das neue Frontend-Fundament zeigen, wohin die 6.7er-Linie entwickelt. Für Agenturen lohnt sich eine frühe Evaluierung des Komponentensystems.\n\n*Release Notes: https://github.com/shopware/shopware/releases/tag/v6.7.11.0*\n*Release Info: https://github.com/shopware/shopware/blob/v6.7.11.0/RELEASE_INFO-6.7.md#67110*"
+    }
+  }
+}
