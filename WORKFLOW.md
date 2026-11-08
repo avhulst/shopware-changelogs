@@ -22,9 +22,8 @@ Anleitung für Agent-Läufe (z. B. über den geplanten Tages-Task) und manuelle 
    - `channels.slack` (mrkdwn, kurz), `channels.teams` (Markdown, ausführlicher), `channels.blog` (Artikel-Entwurf, Deutsch)
 2. RELEASE_INFO-Abschnitt als Original unter `release-info/YYYY-MM-DD-vX.Y.Z.W.md` archivieren (mit Quellzeile oben).
 3. Persona-Texte zusätzlich als Markdown nach `personas/<gruppe>/YYYY-MM-DD-vX.Y.Z.W.md`, Kanal-Texte nach `kanaele/<kanal>/YYYY-MM-DD-vX.Y.Z.W.md` schreiben.
-4. `data/index.json` ergänzen.
+4. `data/index.json` ergänzen (neuer Eintrag mit `file`-Verweis).
 5. Alles in einem Commit via `github_app.push_files` nach `avhulst/shopware-changelogs`, Branch `main`, pushen.
-6. React-App-Datenbestand aktualisieren (Eintrag in die App-Daten übernehmen).
 
 ## 3. Verteilen
 
@@ -32,6 +31,10 @@ Anleitung für Agent-Läufe (z. B. über den geplanten Tages-Task) und manuelle 
 - **Teams**: `channels.teams.text` in den vereinbarten Kanal posten (Teams-Connector).
 - **Blog**: `channels.blog.text` als Entwurf an Andreas übergeben, nicht ungefragt veröffentlichen.
 - Sind die Connectoren nicht verbunden: nur Repo-Update, in der Antwort darauf hinweisen.
+
+## 4. React-App
+
+Kein Datenpflege-Aufwand: Die hostbare App in `app/index.html` lädt `data/index.json` und alle Einträge live per GitHub-API. Ein neuer Eintrag im Repo erscheint automatisch in der App. Nur bei Änderungen am Datenmodell oder UI ist `app/index.html` anzupassen.
 
 ## Ton & Sprache
 

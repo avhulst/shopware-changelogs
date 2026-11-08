@@ -19,7 +19,9 @@ Tägliche Prüfung der Shopware-Changelogs, Zusammenfassung in Deutsch für vers
 │   ├── slack/
 │   ├── teams/
 │   └── blog/
-└── app/                 # React-App (Suche über alle Einträge)
+└── app/                 # Hostbare React-App (lädt data/ live per GitHub-API)
+    ├── index.html
+    └── README.md
 ```
 
 ## Datenmodell (data/*.json)
@@ -48,4 +50,4 @@ Jeder Eintrag enthält `version`, `releasedAt`, `checkedAt`, `type` (patch/minor
 
 ## React-App
 
-Die React-App in `app/` bietet Volltextsuche, Filter nach Persona und Version. Sie wird als Mistral-App (React) betrieben; der Datenstand entspricht dem Repo-Stand.
+Hostbare Variante in `app/`: lädt `data/index.json` und alle Einträge **live** per GitHub-API, daher ohne Pflegeaufwand. Details (Hosting, Token für privates Repo) in `app/README.md`. Parallel existiert eine Canvas-Mini-App in Vibe (embedded Daten), die nur noch optional gepflegt wird.
